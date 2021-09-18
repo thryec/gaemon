@@ -1,0 +1,60 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+}
+/* Page 1 - Title Page */
+
+.title-page {
+  background-image: url("../img/background.jpg");
+  background-size: cover;
+  height: 90vh;
+  width: 100%;
+  text-align: center;
+  padding-top: 20% ;
+  /* display: none; */
+}
+
+
+/* Page 2 - Pokemon Selection */
+
+.selection-page {
+  background-image: url("../img/background.jpg");
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+  text-align: center;
+  display: none;
+}
+
+.team-members {
+    background-color: rgba(200,200,200,0.6);
+    width: 900px;
+    height: 550px;
+}
+
+.pokemon-box {
+    display: inline;
+}
+
+.pokemon-box.img {
+    display: block;
+}
+
+button.confirm-team {
+    /* position: fixed;  */
+    margin-top: 15%;
+    border: none;
+    width: 200px; 
+    height: 50px;
+    font-size: 20px;
+}
+
+
+/* Page 2.2 - Pop-Up Modal for Pokemon Info */
+
+.pokemon-info-modals {
+    display: none;
+}
+
+table {
+    border: 1px solid black;
+}

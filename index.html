@@ -1,13 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pokemon</title>
-    <link rel="stylesheet" href="styles.css">
-    <script defer src="app.js"></script>
-</head>
-<body>
-    Hello World
-</body>
+    <link rel="stylesheet" href="./styles/styles.css" />
+    <script defer src="./scripts/main.js"></script>
+  </head>
+  <body>
+    <!-- Page 1 - Title Page -->
+
+    <div class="title-page">
+      <img src="img/gaemon.png" alt="gaemon" />
+      <div class="enter-player-details">
+        <input type="text" />
+        <button class="submit-pg1" type="submit">Enter Game</button>
+      </div>
+    </div>
+
+    <!-- Page 2 - Pokemon Selection -->
+
+    <div class="selection-page">
+      <h1>Hi {Player}! Select 3 Pokemon for your team.</h1>
+      <div class="team-members">
+        <div class="pokemon-box">
+          <img class="pokemon-img" src="img/squirtle.png" />
+          <button class="pokemon-info">More Info</button>
+        </div>
+        <div class="pokemon-box">
+          <img class="pokemon-img" src="img/bulbasaur.png" />
+          <button class="pokemon-info">More Info</button>
+        </div>
+        <div class="pokemon-box">
+          <img class="pokemon-img" src="img/charmander.png" />
+          <button class="pokemon-info">More Info</button>
+        </div>
+        <div class="pokemon-box">
+          <img class="pokemon-img" src="img/mudkip.png" />
+          <button class="pokemon-info">More Info</button>
+        </div>
+        <div class="pokemon-box">
+          <img class="pokemon-img" src="img/treecko.png" />
+          <button class="pokemon-info">More Info</button>
+        </div>
+        <div class="pokemon-box">
+          <img class="pokemon-img" src="img/torchic.png" />
+          <button class="pokemon-info">More Info</button>
+        </div>
+      </div>
+      <button class="confirm-team">Confirm Team</button>
+    </div>
+
+    <!-- Page 2.2 - Pop-Up Modal for Pokemon Info -->
+
+    <div class="pokemon-info-modals">
+      <div class="squirtle-modal">
+        <h2>SQUIRTLE</h2>
+        <table>
+          <tr>
+            <td>Type:</td>
+            <td>Water</td>
+          </tr>
+          <tr>
+            <td>Health:</td>
+            <td>80HP</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
 </html>

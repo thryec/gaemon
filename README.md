@@ -1,8 +1,5 @@
 # Pokemon 
 
-https://pokeapi.co/
-https://pokeapi.co/api/v2/stat/4/
-
 
 ## Features 
 * health bar 
@@ -17,3 +14,8 @@ https://pokeapi.co/api/v2/stat/4/
 
 * https://www.gamedeveloperstudio.com/
 * https://opengameart.org/
+* https://fontmeme.com/pokemon-font/
+
+
+## libraries to explore
+* axios - for fetching data 
