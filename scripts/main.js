@@ -18,7 +18,7 @@ const starterPokemonNames = [
   "torchic",
 ];
 const starterPokemonArr = [
-  { name: "squirtle", image: "../img/squirtle.png" },
+  { name: "squirtle", image: "../img/squirtle.png", moves: { } },
   { name: "bulbasaur", image: "../img/bulbasaur.png" },
   { name: "charmander", image: "../img/charmander.png" },
   { name: "mudkip", image: "../img/mudkip.png" },
@@ -26,24 +26,28 @@ const starterPokemonArr = [
   { name: "torchic", image: "../img/torchic.png" },
 ];
 
-//-------------- Pokemon Factory --------------//
+const allPokemonDetails = []
+
+//-------------- Classes --------------//
 
 class Pokemon {
-  constructor(name, type, hp, isAlive) {
+  constructor(name, type, hp, isAlive, moves, img) {
     (this.name = name),
       (this.type = type),
       (this.hp = hp),
       (this.isAlive = isAlive || true);
-    // this.moves = moves,
-    // this.img = img;
+    (this.moves = moves), 
+    (this.img = img);
   }
 
-  attack(target) {}
+  attack(target, move) {}
 
   announceHealth() {
     console.log(`${this.name}'s Health is ${this.hp}HP now.`);
   }
 }
+
+//-------------- Pokemon Factory --------------//
 
 const getPokemonPromise = async (breed) => {
   const response = await fetch(pokemonApiUrl + "/" + breed);
@@ -54,32 +58,39 @@ const getPokemonPromise = async (breed) => {
 const extractPokemonDetails = async (breed) => {
   const obj = {};
   const data = await getPokemonPromise(breed);
+  let moves = data.moves;
   let type = data.types[0].type.name;
   let hp = data.stats[0].base_stat;
   obj.name = breed;
   obj.type = type;
   obj.hp = hp;
-  return obj 
+  obj.moves = moves;
+  return obj;
 };
-
-//   return getPokemonPromise(breed).then((data) => {
-//     let type = data.types[0].type.name;
-//     let hp = data.stats[0].base_stat;
-//     obj.name = breed;
-//     obj.type = type;
-//     obj.hp = hp;
-//     return obj;
-//   });
 
 const createPokemon = async (breed) => {
-    const data = await extractPokemonDetails(breed)
-    console.log(data)
-    const pokemon = new Pokemon(data.name, data.type, data.hp);
-    console.log(pokemon);
+  const data = await extractPokemonDetails(breed);
+  let image; 
+  for (let element of starterPokemonArr) {
+      if(element.name === breed) {
+          image = element.image
+      }
+  }
+  const pokemon = new Pokemon(data.name, data.type, data.hp, true, data.moves, image);
+  allPokemonDetails.push(pokemon)
 };
 
-createPokemon("charmander");
+// createPokemon("charmander");
 
+const createAllPokemon = async () => {
+  for (element of starterPokemonArr) {
+    createPokemon(element.name);
+  }
+};
+
+createAllPokemon()
+
+console.log(allPokemonDetails)
 //-------------- Create Info Boxes --------------//
 
 //-------------- DOM Manipulation --------------//
@@ -127,6 +138,10 @@ confirmButton.addEventListener("click", () => {
 });
 
 // Page 3 - generate pokemon in player's team
+
+for (let element of playerArr) {
+
+}
 
 //-------------- Helper Functions --------------//
 
