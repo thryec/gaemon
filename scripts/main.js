@@ -9,18 +9,16 @@ let roundCount = 0;
 
 //-------------- Game Class --------------//
 
-
-
 //-------------- Create Info Boxes --------------//
 
-//-------------- DOM Manipulation --------------//
+//-------------- Page 1 --------------//
 
 // Extract page elements
 const titlePage = document.querySelector(".title-page");
 const selectionPage = document.querySelector(".selection-page");
 const playersTeamPage = document.querySelector(".players-team-page");
 
-// Page 1 - submit button takes player input and displays on next page
+// Submit button takes player input and displays on next page
 
 const submitBtn = document.querySelector(".submit-pg1");
 submitBtn.addEventListener("click", () => {
@@ -33,7 +31,8 @@ submitBtn.addEventListener("click", () => {
   selectionPage.style.display = "block";
 });
 
-// Page 2 - adds selected pokemons into players array
+//-------------- Page 2 --------------//
+// Adds selected pokemons into players array
 
 const avatars = document.querySelectorAll(".pokemon-img");
 const confirmButton = document.querySelector(".confirm-team-btn");
@@ -43,7 +42,6 @@ avatars.forEach((element) => {
     if (!arrIsFull(playerArr)) {
       const selectedPokemon = element.getAttribute("value");
       playerArr.push(selectedPokemon);
-      console.log(playerArr);
       element.style.pointerEvents = "none";
       element.style.opacity = "0.5";
     }
@@ -60,18 +58,32 @@ confirmButton.addEventListener("click", () => {
   showPlayerSelection();
 });
 
-// Page 3 - generate pokemon in player's team
+//-------------- Page 3 --------------//
+// Generate pokemon in player's team
+const teamDisplay = document.querySelector(".display-team");
 
 const showPlayerSelection = () => {
-  console.log(playerArr);
-  for (let selected in playerArr) {
-    console.log(selected);
-    // for (let element of starterPokemonArr) {
-    //     if (selected == element.name) {
-    //         console.log(element.image)
-    //     }
-    // }
+  for (let selected of playerArr) {
+    for (let element of allPokemonDetails) {
+      if (selected == element.name) {
+        const displayWithStats = document.createElement("div");
+        displayWithStats.classList.add('stats-box')
+        teamDisplay.appendChild(displayWithStats);
+
+        const img = createImgElement(element.img);
+        displayWithStats.appendChild(img);
+        addHealthBar(displayWithStats);
+        
+        const healthBar = document.querySelector(".health-bar");
+        healthBar.innerHTML = element.hp;
+      }
+    }
   }
+};
+
+const addHealthBar = (parentDiv) => {
+  const bar = createHealthBar();
+  parentDiv.appendChild(bar);
 };
 
 //-------------- Helper Functions --------------//
@@ -86,4 +98,17 @@ const addRemainingToOpponent = () => {
   );
 };
 
-const generateHPBar = () => {};
+const createImgElement = (urlPath) => {
+  let img = document.createElement("img");
+  img.src = urlPath;
+  return img;
+};
+
+const createHealthBar = () => {
+  const outerDiv = document.createElement("div");
+  const innerDiv = document.createElement("div");
+  outerDiv.classList.add("health-bar-container");
+  innerDiv.classList.add("health-bar");
+  outerDiv.append(innerDiv);
+  return outerDiv;
+};
