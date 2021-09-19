@@ -10,48 +10,52 @@
   <body>
     <!-- Page 1 - Title Page -->
 
-    <div class="title-page">
+    <div class="title-page sea-background">
       <img src="img/gaemon.png" alt="gaemon" />
       <div class="enter-player-details">
         <input type="text" />
-        <button class="submit-pg1" type="submit">Enter Game</button>
+        <button class="submit-pg1">Enter Game</button>
       </div>
     </div>
 
     <!-- Page 2 - Pokemon Selection -->
 
-    <div class="selection-page">
-      <h1>Hi {Player}! Select 3 Pokemon for your team.</h1>
+    <div class="selection-page sea-background">
+      <h1 class="player-greeting"></h1>
       <div class="team-members">
         <div class="pokemon-box">
-          <img class="pokemon-img" src="img/squirtle.png" />
+          <img class="pokemon-img" src="img/squirtle.png" value="squirtle" />
           <button class="pokemon-info">More Info</button>
         </div>
         <div class="pokemon-box">
-          <img class="pokemon-img" src="img/bulbasaur.png" />
+          <img class="pokemon-img" src="img/bulbasaur.png" value="bulbasaur" />
           <button class="pokemon-info">More Info</button>
         </div>
         <div class="pokemon-box">
-          <img class="pokemon-img" src="img/charmander.png" />
+          <img
+            class="pokemon-img"
+            src="img/charmander.png"
+            value="charmander"
+          />
           <button class="pokemon-info">More Info</button>
         </div>
         <div class="pokemon-box">
-          <img class="pokemon-img" src="img/mudkip.png" />
+          <img class="pokemon-img" src="img/mudkip.png" value="mudkip" />
           <button class="pokemon-info">More Info</button>
         </div>
         <div class="pokemon-box">
-          <img class="pokemon-img" src="img/treecko.png" />
+          <img class="pokemon-img" src="img/treecko.png" value="treecko" />
           <button class="pokemon-info">More Info</button>
         </div>
         <div class="pokemon-box">
-          <img class="pokemon-img" src="img/torchic.png" />
+          <img class="pokemon-img" src="img/torchic.png" value="torchic" />
           <button class="pokemon-info">More Info</button>
         </div>
       </div>
-      <button class="confirm-team">Confirm Team</button>
+      <button class="confirm-team-btn">Confirm Team</button>
     </div>
 
-    <!-- Page 2.2 - Pop-Up Modal for Pokemon Info -->
+    <!-- Page 2.1 - Pop-Up Modal for Pokemon Info -->
 
     <div class="pokemon-info-modals">
       <div class="squirtle-modal">
@@ -68,5 +72,17 @@
         </table>
       </div>
     </div>
+
+    <!-- Page 3 - Show Current Team -->
+
+    <div class="players-team-page sea-background">
+        <h1>Select your first contender:</h1>
+      <div class="display-team"></div>
+      <button class="play-btn">Play</button>
+    </div>
+
+    <!-- Page 4 - Round 1 -->
+
+
   </body>
 </html>

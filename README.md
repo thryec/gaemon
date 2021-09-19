@@ -19,3 +19,7 @@
 
 ## libraries to explore
 * axios - for fetching data 
+
+
+### To-Dos
+* refactor pokemon promise 
