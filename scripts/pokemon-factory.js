@@ -116,5 +116,5 @@ const createAllPokemon = async () => {
 };
 
 createAllPokemon();
-console.log(allPokemonDetails)
+// console.log(allPokemonDetails)
  

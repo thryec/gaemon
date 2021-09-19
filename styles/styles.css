@@ -13,7 +13,7 @@ body {
 
 .battle-background {
     background-image: url("../img/pokemon-battle.png");
-    background-size: cover;
+    background-size: cover; 
     height: 100vh;
     width: 100%;
 }
@@ -23,8 +23,8 @@ body {
 .title-page {
   text-align: center;
   padding-top: 20% ;
-  position: relative
-  /* display: none; */
+  position: relative;
+  display: none;
 }
 
 /* Page 2 - Pokemon Selection */
@@ -77,15 +77,18 @@ table {
     display: none;
     position: relative;
 }
+
 .players-team-page h1 {
     padding: 5%;
 }
 
 .stats-box {
     display: inline-block;
+    text-align: center;
+
 }
 
-.play-btn {
+.play-button {
     position: absolute; 
     bottom: 30px; 
     right: 180px; 
@@ -97,6 +100,7 @@ table {
 }
 
 
+/* Page 4 - Round 1 */
 
 
 
