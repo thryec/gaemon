@@ -20,7 +20,7 @@ body {
 .title-page {
   text-align: center;
   padding-top: 20% ;
-  display: none;
+  /* display: none; */
 }
 
 /* Page 2 - Pokemon Selection */
@@ -74,6 +74,7 @@ table {
 
 .players-team-page {
     text-align: center;
+    display: none;
 }
 .players-team-page h1 {
     padding: 5%;

@@ -18,15 +18,39 @@ const starterPokemonNames = [
   "torchic",
 ];
 const starterPokemonArr = [
-  { name: "squirtle", image: "../img/squirtle.png", moves: { } },
-  { name: "bulbasaur", image: "../img/bulbasaur.png" },
-  { name: "charmander", image: "../img/charmander.png" },
-  { name: "mudkip", image: "../img/mudkip.png" },
-  { name: "treecko", image: "../img/treecko.png" },
-  { name: "torchic", image: "../img/torchic.png" },
+  {
+    name: "squirtle",
+    image: "../img/squirtle.png",
+    moves: { Headbutt: 10, Watergun: 12, Bite: 8, Confusion: 5 },
+  },
+  {
+    name: "bulbasaur",
+    image: "../img/bulbasaur.png",
+    moves: { Razerleaf: 11, Leechseed: 12, Growth: 8, Cut: 5 },
+  },
+  {
+    name: "charmander",
+    image: "../img/charmander.png",
+    moves: { Firepunch: 10, Scratch: 7, Bodyslam: 8, Megakick: 5 },
+  },
+  {
+    name: "mudkip",
+    image: "../img/mudkip.png",
+    moves: { Icebeam: 10, Headbutt: 12, Hydropump: 8, Stomp: 5 },
+  },
+  {
+    name: "treecko",
+    image: "../img/treecko.png",
+    moves: { Tackle: 10, RazorWind: 12, Cut: 8, Pound: 5 },
+  },
+  {
+    name: "torchic",
+    image: "../img/torchic.png",
+    moves: { Flamethrower: 10, Peck: 12, Scratch: 8, Sandattack: 5 },
+  },
 ];
 
-const allPokemonDetails = []
+const allPokemonDetails = [];
 
 //-------------- Classes --------------//
 
@@ -36,8 +60,7 @@ class Pokemon {
       (this.type = type),
       (this.hp = hp),
       (this.isAlive = isAlive || true);
-    (this.moves = moves), 
-    (this.img = img);
+    (this.moves = moves), (this.img = img);
   }
 
   attack(target, move) {}
@@ -64,23 +87,33 @@ const extractPokemonDetails = async (breed) => {
   obj.name = breed;
   obj.type = type;
   obj.hp = hp;
-  obj.moves = moves;
   return obj;
 };
 
 const createPokemon = async (breed) => {
   const data = await extractPokemonDetails(breed);
-  let image; 
+  let image;
+  let moves; 
   for (let element of starterPokemonArr) {
-      if(element.name === breed) {
-          image = element.image
-      }
+    if (element.name === breed) {
+      image = element.image;
+    }
   }
-  const pokemon = new Pokemon(data.name, data.type, data.hp, true, data.moves, image);
-  allPokemonDetails.push(pokemon)
+  for (let element of starterPokemonArr) {
+    if (element.name === breed) {
+      moves = element.moves;
+    }
+  }
+  const pokemon = new Pokemon(
+    data.name,
+    data.type,
+    data.hp,
+    true,
+    moves,
+    image
+  );
+  allPokemonDetails.push(pokemon);
 };
-
-// createPokemon("charmander");
 
 const createAllPokemon = async () => {
   for (element of starterPokemonArr) {
@@ -88,13 +121,14 @@ const createAllPokemon = async () => {
   }
 };
 
-createAllPokemon()
+createAllPokemon();
 
 console.log(allPokemonDetails)
 //-------------- Create Info Boxes --------------//
 
 //-------------- DOM Manipulation --------------//
 
+// Extract page elements
 const titlePage = document.querySelector(".title-page");
 const selectionPage = document.querySelector(".selection-page");
 const playersTeamPage = document.querySelector(".players-team-page");
@@ -135,13 +169,23 @@ avatars.forEach((element) => {
 confirmButton.addEventListener("click", () => {
   addRemainingToOpponent();
   selectionPage.style.display = "none";
+  playersTeamPage.style.display = "block";
+  showPlayerSelection();
 });
 
 // Page 3 - generate pokemon in player's team
 
-for (let element of playerArr) {
-
-}
+const showPlayerSelection = () => {
+  console.log(playerArr);
+  for (let selected in playerArr) {
+    console.log(selected);
+    // for (let element of starterPokemonArr) {
+    //     if (selected == element.name) {
+    //         console.log(element.image)
+    //     }
+    // }
+  }
+};
 
 //-------------- Helper Functions --------------//
 
