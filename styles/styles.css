@@ -102,6 +102,29 @@ table {
 
 /* Page 4 - Round 1 */
 
+.battle-round-1 {
+    text-align: center;
+    position: relative; 
+    width: 100%;
+    /* display: none; */
+}
+
+
+.player-moves {
+    background-color: #CCC;
+    position: absolute;
+    width: 90%;
+    left: 35px; 
+    top: 850px; 
+}
+
+.player-moves button {
+    background-color: aqua;
+    border: none; 
+    font-size: 20px;
+    margin: 2%;
+    padding: 2%;
+}
 
 
 /* Health Bar  */

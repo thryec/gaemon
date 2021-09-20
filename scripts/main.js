@@ -7,14 +7,6 @@ let currentPlayer = "";
 let currentOpponent = "";
 let roundCount = 0;
 
-//-------------- Game Class --------------//
-
-class Game {
-  startGame() {}
-  startRound() {
-    roundCount++;
-  }
-}
 //-------------- Create Info Boxes --------------//
 
 //-------------- Page 1 --------------//
@@ -59,9 +51,9 @@ avatars.forEach((element) => {
 
 confirmButton.addEventListener("click", () => {
   addRemainingToOpponent();
+  showPlayerSelection();
   selectionPage.style.display = "none";
   playersTeamPage.style.display = "block";
-  showPlayerSelection();
 });
 
 // Generate more info modal (low priority)
@@ -72,21 +64,19 @@ const teamDisplay = document.querySelector(".display-team");
 const playButton = document.querySelector(".play-button");
 
 const showPlayerSelection = () => {
-  for (let selected of playerArr) {
-    for (let element of allPokemonDetails) {
+  for (let element of allPokemonDetails) {
+    for (let selected of playerArr) {
       if (selected === element.name) {
         const displayWithStats = document.createElement("div");
         displayWithStats.classList.add("stats-box");
         teamDisplay.appendChild(displayWithStats);
 
-        const img = createImgElement(element.img);
-        img.classList.add("players-characters");
-        img.setAttribute("value", selected);
+        const img = createImgWithURL(element.img);
+        img.classList.add("character-stats");
+        img.setAttribute("value", element.name);
         displayWithStats.appendChild(img);
-        addHealthBar(displayWithStats);
 
-        const healthBar = document.querySelector(".health-bar");
-        healthBar.innerHTML = element.hp;
+        addHealthBar(displayWithStats);
       }
     }
   }
@@ -96,41 +86,53 @@ const showPlayerSelection = () => {
 
 // select candidate and assign to currentPlayer
 const selectActiveCharacter = () => {
-  const playersCharacters = document.querySelectorAll(".players-characters");
+  const playersCharacters = document.querySelectorAll(".character-stats");
   for (let option of playersCharacters) {
     option.addEventListener("click", (evt) => {
       currentPlayer = evt.target.getAttribute("value");
       console.log(currentPlayer);
-      //   announceCurrentPokemon();
-      //   activatePlayButton();
-      playButton.addEventListener("click", (evt) => {
-        announceCurrentPokemon();
-        console.log(evt);
-      });
     });
   }
 };
 
-// const activatePlayButton = () => {
+window.addEventListener("load", () => {
+  activatePlayButton();
+});
 
-//   };
+const activatePlayButton = () => {
+  // console.log("called play btn");
+  playButton.addEventListener("click", (evt) => {
+    announceCurrentPokemon();
+    console.log(evt);
+  });
+  // console.log("ended play btn");
+};
 
 //-------------- Page 4 --------------//
 
 const title = document.querySelector(".title-round-1");
 title.innerHTML = `Round ${roundCount}`;
-// generate current player and current opponent
+// generate current player and current opponent -
+// function to create pokemon img and current hp using name as input
 
-const showImgStats = (breed) => {
-  for (let pokemon of allPokemonDetails) {
-    if ((breed = pokemon.name)) {
-      const img = createImgElement(pokemon.img);
-      img.classList.add("players-characters");
-      img.setAttribute("value", pokemon.name);
+const playerOptions = document.querySelector(".player-moves");
+
+const generateMoves = (breed) => {
+  console.log("called");
+  for (let element of allPokemonDetails) {
+    if (breed === element.name) {
+      for (let move in element.moves) {
+        const moveButton = createButton(move);
+        moveButton.classList.add("move-button");
+        playerOptions.append(moveButton);
+      }
     }
   }
 };
-// generate current player moves
+
+window.addEventListener("load", () => {
+  generateMoves("charmander");
+});
 
 //-------------- Helper Functions --------------//
 
@@ -144,11 +146,23 @@ const addRemainingToOpponent = () => {
   );
 };
 
-const createImgElement = (urlPath) => {
+const createImgWithURL = (urlPath) => {
   let img = document.createElement("img");
   img.src = urlPath;
   return img;
 };
+
+const createImgWithName = (breed) => {
+  for (let element of allPokemonDetails) {
+    if (breed === element.name) {
+      console.log("found");
+    }
+  }
+};
+
+window.addEventListener("load", () => {
+  createImgWithName("charmander");
+});
 
 const createHealthBar = () => {
   const outerDiv = document.createElement("div");
@@ -180,4 +194,10 @@ const randomlySelectOpponent = () => {
   currentOpponent = "";
   const rand = generateRandomInteger(0, 3);
   currentOpponent = opponentArr[rand];
+};
+
+const createButton = (value) => {
+  const btn = document.createElement("button");
+  btn.innerHTML = value;
+  return btn;
 };
