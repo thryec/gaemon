@@ -54,7 +54,7 @@ class Pokemon {
     (this.moves = moves), (this.img = img);
   }
 
-  attack(target, move) {}
+  attackOpponent(target, move) {}
 
   checkIsAlive(breed) {}
 

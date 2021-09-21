@@ -12,8 +12,7 @@ class Game {
     roundCount++;
   }
 
-  reduceHP(breed) {}
-  checkHealth(breed) {}
+  reduceHP(breed, move) {}
 }
 
-const game = new Game();
+const newGame = new Game();

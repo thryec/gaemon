@@ -112,16 +112,17 @@ table {
     top: 850px; 
 }
 
-.player-moves button {
+.battle-character {
+    width: 40%;
+}
+
+.attack-options {
     background-color: aqua;
     border: none; 
     font-size: 20px;
     margin: 2%;
     padding: 2%;
-}
-
-.battle-character {
-    width: 40%;
+    cursor: pointer;
 }
 
 /* Health Bar  */

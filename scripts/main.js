@@ -109,47 +109,50 @@ const activatePlayButton = () => {
 const title = document.querySelector(".title-round-1");
 const playerOptions = document.querySelector(".player-moves");
 const player1 = document.querySelector(".player1");
-const opponent1 = document.querySelector('.opponent1')
+const opponent1 = document.querySelector(".opponent1");
 
-title.innerHTML = `Round ${roundCount}`
+title.innerHTML = `Round ${roundCount}`;
 
 const generateMoves = (breed) => {
   for (let element of allPokemonDetails) {
     if (breed === element.name) {
       for (let move in element.moves) {
         const moveButton = createButton(move);
-        moveButton.classList.add("move-button");
+        moveButton.classList.add("attack-options");
         playerOptions.append(moveButton);
       }
     }
   }
 };
 
-const renderPlayerPokemon = (currentPlayer) => {
-    const img = createImgWithName(currentPlayer)
-    player1.appendChild(img)
-    addHealthBar(player1)
+const renderBattlePokemon = (currentPlayer) => {
+  const img = createImgWithName(currentPlayer);
+  player1.appendChild(img);
+  addHealthBar(player1);
 };
 
-const renderOpponentPokemon = (currentOpponent) => {
-    const img = createImgWithName(currentOpponent)
-    opponent1.appendChild(img)
-    addHealthBar(opponent1)
-}
+// event listener on moves buttons -> decrement opponents HP accordingly
+// randomly select opponent move -> decrement player's HP
+// check HP - when someone is dead, announce winner
+
+const selectMove = () => {
+  const attackOptions = document.querySelectorAll(".attack-options");
+  for (let option of attackOptions) {
+    option.addEventListener('click', (evt) => {
+        let selectedMove = evt.target.innerHTML
+        const attackHP = getMoveHP(currentPlayer, selectedMove)
+        console.log(selectedMove, attackHP)
+    })
+  }
+};
 
 
 window.addEventListener("load", () => {
   generateMoves(currentPlayer);
-  renderPlayerPokemon(currentPlayer)
-  renderOpponentPokemon(currentOpponent)
+  renderBattlePokemon(currentPlayer);
+  renderBattlePokemon(currentOpponent);
+  selectMove();
 });
-
-// event listener on moves buttons -> decrement opponents HP accordingly 
-// randomly select opponent move -> decrement player's HP 
-// check HP - when someone is dead, announce winner 
-
-
-
 
 //-------------- Helper Functions --------------//
 
@@ -184,10 +187,10 @@ const createImgWithName = (breed) => {
 };
 
 const addHealthBar = (parentDiv) => {
-    const bar = createHealthBar();
-    parentDiv.appendChild(bar);
-  };
-  
+  const bar = createHealthBar();
+  parentDiv.appendChild(bar);
+};
+
 const createHealthBar = () => {
   const outerDiv = document.createElement("div");
   const innerDiv = document.createElement("div");
@@ -196,7 +199,6 @@ const createHealthBar = () => {
   outerDiv.append(innerDiv);
   return outerDiv;
 };
-
 
 const generateRandomInteger = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min);
@@ -221,3 +223,13 @@ const createButton = (value) => {
   btn.innerHTML = value;
   return btn;
 };
+
+const getPokemonDetailsWithName = (name) => {
+    return allPokemonDetails.filter(pokemon => pokemon.name === name)
+}
+
+const getMoveHP = (pokemon, move) => {
+    const detailsObject = getPokemonDetailsWithName(pokemon)
+    const hp = detailsObject[0].moves[move]
+    return hp 
+}
