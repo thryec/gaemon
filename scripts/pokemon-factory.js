@@ -1,6 +1,7 @@
 //-------------- Pokemon Variables --------------//
 
 const allPokemonDetails = [];
+//  testing 
 const pokemonApiUrl = "https://pokeapi.co/api/v2/pokemon";
 
 const starterPokemonNames = [
