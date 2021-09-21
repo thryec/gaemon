@@ -3,8 +3,8 @@
 let playerName = "";
 let playerArr = [];
 let opponentArr = [];
-let currentPlayer = "";
-let currentOpponent = "";
+let currentPlayer = "charmander";
+let currentOpponent = "squirtle";
 let roundCount = 0;
 
 //-------------- Create Info Boxes --------------//
@@ -91,34 +91,29 @@ const selectActiveCharacter = () => {
     option.addEventListener("click", (evt) => {
       currentPlayer = evt.target.getAttribute("value");
       console.log(currentPlayer);
+      activatePlayButton();
     });
   }
 };
 
-window.addEventListener("load", () => {
-  activatePlayButton();
-});
-
 const activatePlayButton = () => {
-  // console.log("called play btn");
-  playButton.addEventListener("click", (evt) => {
-    announceCurrentPokemon();
-    console.log(evt);
+  playButton.pointerEvents = "auto";
+  playButton.addEventListener("click", () => {
+    //   announceCurrentPokemon();
+    console.log("play button clicked");
   });
-  // console.log("ended play btn");
 };
 
 //-------------- Page 4 --------------//
 
 const title = document.querySelector(".title-round-1");
-title.innerHTML = `Round ${roundCount}`;
-// generate current player and current opponent -
-// function to create pokemon img and current hp using name as input
-
 const playerOptions = document.querySelector(".player-moves");
+const player1 = document.querySelector(".player1");
+const opponent1 = document.querySelector('.opponent1')
+
+title.innerHTML = `Round ${roundCount}`
 
 const generateMoves = (breed) => {
-  console.log("called");
   for (let element of allPokemonDetails) {
     if (breed === element.name) {
       for (let move in element.moves) {
@@ -130,11 +125,39 @@ const generateMoves = (breed) => {
   }
 };
 
+const renderPlayerPokemon = (currentPlayer) => {
+    const img = createImgWithName(currentPlayer)
+    player1.appendChild(img)
+    addHealthBar(player1)
+};
+
+const renderOpponentPokemon = (currentOpponent) => {
+    const img = createImgWithName(currentOpponent)
+    opponent1.appendChild(img)
+    addHealthBar(opponent1)
+}
+
+
 window.addEventListener("load", () => {
-  generateMoves("charmander");
+  generateMoves(currentPlayer);
+  renderPlayerPokemon(currentPlayer)
+  renderOpponentPokemon(currentOpponent)
 });
 
+// event listener on moves buttons -> decrement opponents HP accordingly 
+// randomly select opponent move -> decrement player's HP 
+// check HP - when someone is dead, announce winner 
+
+
+
+
 //-------------- Helper Functions --------------//
+
+const getGlobalVariables = () => {
+  console.log(
+    `Player Name: ${playerName}, Player Array: ${playerArr}, Opponent's Array: ${opponentArr}, Player's Current Pokemon: ${currentPlayer}, Opponent's Current Player: ${currentOpponent}, Round Count: ${roundCount} `
+  );
+};
 
 const arrIsFull = (array) => {
   return array.length < 3 ? false : true;
@@ -155,15 +178,16 @@ const createImgWithURL = (urlPath) => {
 const createImgWithName = (breed) => {
   for (let element of allPokemonDetails) {
     if (breed === element.name) {
-      console.log("found");
+      return createImgWithURL(element.img);
     }
   }
 };
 
-window.addEventListener("load", () => {
-  createImgWithName("charmander");
-});
-
+const addHealthBar = (parentDiv) => {
+    const bar = createHealthBar();
+    parentDiv.appendChild(bar);
+  };
+  
 const createHealthBar = () => {
   const outerDiv = document.createElement("div");
   const innerDiv = document.createElement("div");
@@ -173,10 +197,6 @@ const createHealthBar = () => {
   return outerDiv;
 };
 
-const addHealthBar = (parentDiv) => {
-  const bar = createHealthBar();
-  parentDiv.appendChild(bar);
-};
 
 const generateRandomInteger = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min);

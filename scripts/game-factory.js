@@ -1,17 +1,19 @@
 //-------------- Game Class --------------//
 
 class Game {
-    constructor(numOfRounds) {
-        this.rounds = numOfRounds
-    }
-    startGame() {
-        createAllPokemon() 
-        roundCount = 0 
-    }
-    startRound() {
-      roundCount++;
-    }
-    
+  constructor(numOfRounds) {
+    this.rounds = numOfRounds;
+  }
+  startGame() {
+    createAllPokemon();
+    roundCount = 0;
+  }
+  startRound(player, opponent) {
+    roundCount++;
   }
 
-const game = new Game; 
+  reduceHP(breed) {}
+  checkHealth(breed) {}
+}
+
+const game = new Game();

@@ -56,6 +56,8 @@ class Pokemon {
 
   attack(target, move) {}
 
+  checkIsAlive(breed) {}
+
   announceHealth() {
     console.log(`${this.name}'s Health is ${this.hp}HP now.`);
   }

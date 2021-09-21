@@ -1,25 +1,9 @@
 # Pokemon 
 
 
-## Features 
-* health bar 
-* potions 
-* attack points according to pokemon type 
-* user can earn coins for winning - earn more if you have more pokemon alive at the end of the game 
-* with coins can buy items to increase defense/attack 
-* max n amount of attempts
-
-
-## Game Resources 
-
-* https://www.gamedeveloperstudio.com/
-* https://opengameart.org/
-* https://fontmeme.com/pokemon-font/
-
-
-## libraries to explore
-* axios - for fetching data 
-
-
-### To-Dos
-* refactor pokemon promise 
+## User Stories 
+1. User inputs their name into the start page 
+2. User selects up to 3 Pokemon from the deck as their battle characters 
+3. User selects which Pokemon they want to start the game 
+4. User selects which move to use to attack the Opponent 
+5. Game ends when either party has all their Pokemon killed 

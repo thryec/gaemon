@@ -75,7 +75,6 @@ table {
 .players-team-page {
     text-align: center;
     display: none;
-    position: relative;
 }
 
 .players-team-page h1 {
@@ -85,13 +84,9 @@ table {
 .stats-box {
     display: inline-block;
     text-align: center;
-
 }
 
 .play-button {
-    position: absolute; 
-    bottom: 30px; 
-    right: 180px; 
     border: none;
     width: 200px; 
     height: 50px;
@@ -104,7 +99,6 @@ table {
 
 .battle-round-1 {
     text-align: center;
-    position: relative; 
     width: 100%;
     /* display: none; */
 }
@@ -126,6 +120,9 @@ table {
     padding: 2%;
 }
 
+.battle-character {
+    width: 40%;
+}
 
 /* Health Bar  */
 
