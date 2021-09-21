@@ -135,23 +135,39 @@ const renderBattlePokemon = (currentPlayer) => {
 // randomly select opponent move -> decrement player's HP
 // check HP - when someone is dead, announce winner
 
-const selectMove = () => {
+const selectPlayerMove = () => {
   const attackOptions = document.querySelectorAll(".attack-options");
   for (let option of attackOptions) {
     option.addEventListener('click', (evt) => {
         let selectedMove = evt.target.innerHTML
-        const attackHP = getMoveHP(currentPlayer, selectedMove)
-        console.log(selectedMove, attackHP)
+        console.log(selectedMove)
+        attack(currentPlayer, currentOpponent, selectedMove)
     })
   }
 };
 
+const attack = (sender, receiver, move) => {
+    const damageHP = getMoveHP(sender, move)
+    let targetHP = getPokemonHP(receiver)
+    pokemonDetailsObject[receiver].hp = targetHP - damageHP
+    console.log(`${receiver}'s HP is now ${pokemonDetailsObject[receiver].hp}`)
+    checkIsAlive(receiver)
+}
+
+const checkIsAlive = (pokemon) => {
+    if (pokemonDetailsObject[pokemon].hp <= 0) {
+        pokemonDetailsObject[pokemon].isAlive = false;
+        console.log("dead")
+    } else {
+        console.log("still alive")
+    }
+}
 
 window.addEventListener("load", () => {
   generateMoves(currentPlayer);
   renderBattlePokemon(currentPlayer);
   renderBattlePokemon(currentOpponent);
-  selectMove();
+  selectPlayerMove();
 });
 
 //-------------- Helper Functions --------------//
@@ -232,4 +248,8 @@ const getMoveHP = (pokemon, move) => {
     const detailsObject = getPokemonDetailsWithName(pokemon)
     const hp = detailsObject[0].moves[move]
     return hp 
+}
+
+const getPokemonHP = (pokemon) => {
+    return pokemonDetailsObject[pokemon].hp
 }
