@@ -13,6 +13,9 @@ class Game {
   }
 
   reduceHP(breed, move) {}
+  attackOpponent(target, move) {}
+  checkIsAlive(breed) {}
+
 }
 
 const newGame = new Game();

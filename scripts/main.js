@@ -131,6 +131,11 @@ const renderBattlePokemon = (currentPlayer) => {
   addHealthBar(player1);
 };
 
+// assign pokemon object to current player
+const getPokemonDetailsWithName = (name) => {
+  return allPokemonDetails.filter((pokemon) => pokemon.name === name);
+};
+
 // event listener on moves buttons -> decrement opponents HP accordingly
 // randomly select opponent move -> decrement player's HP
 // check HP - when someone is dead, announce winner
@@ -138,14 +143,32 @@ const renderBattlePokemon = (currentPlayer) => {
 const selectMove = () => {
   const attackOptions = document.querySelectorAll(".attack-options");
   for (let option of attackOptions) {
-    option.addEventListener('click', (evt) => {
-        let selectedMove = evt.target.innerHTML
-        const attackHP = getMoveHP(currentPlayer, selectedMove)
-        console.log(selectedMove, attackHP)
-    })
+    option.addEventListener("click", (evt) => {
+      let selectedMove = evt.target.innerHTML;
+      const attackHP = getMoveHP(currentPlayer, selectedMove);
+      attackOpponent(currentOpponent, attackHP);
+    });
   }
 };
 
+const attackOpponent = (opponent, damage) => {
+  let opponentHP = getPokemonHealth(opponent);
+  opponentHP -= damage;
+  console.log(opponentHP);
+  return opponentHP;
+};
+
+const getMoveHP = (pokemon, move) => {
+  const pokemonDetails = getPokemonDetailsWithName(pokemon);
+  const hp = pokemonDetails[0].moves[move];
+  return hp;
+};
+
+const getPokemonHealth = (pokemon) => {
+  const pokemonDetails = getPokemonDetailsWithName(pokemon);
+  const health = pokemonDetails[0].hp;
+  return health;
+};
 
 window.addEventListener("load", () => {
   generateMoves(currentPlayer);
@@ -223,13 +246,3 @@ const createButton = (value) => {
   btn.innerHTML = value;
   return btn;
 };
-
-const getPokemonDetailsWithName = (name) => {
-    return allPokemonDetails.filter(pokemon => pokemon.name === name)
-}
-
-const getMoveHP = (pokemon, move) => {
-    const detailsObject = getPokemonDetailsWithName(pokemon)
-    const hp = detailsObject[0].moves[move]
-    return hp 
-}

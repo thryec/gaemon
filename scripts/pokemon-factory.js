@@ -54,10 +54,6 @@ class Pokemon {
     (this.moves = moves), (this.img = img);
   }
 
-  attackOpponent(target, move) {}
-
-  checkIsAlive(breed) {}
-
   announceHealth() {
     console.log(`${this.name}'s Health is ${this.hp}HP now.`);
   }
@@ -119,4 +115,3 @@ const createAllPokemon = async () => {
 
 createAllPokemon();
 console.log(allPokemonDetails)
- 
