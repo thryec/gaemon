@@ -6,6 +6,7 @@ let opponentArr = [];
 let currentPlayer = "charmander";
 let currentOpponent = "squirtle";
 let roundCount = 0;
+let playersTurn = true; // incorporate this
 
 //-------------- Create Info Boxes --------------//
 
@@ -118,22 +119,23 @@ const generateMoves = (breed) => {
     if (breed === element.name) {
       for (let move in element.moves) {
         const moveButton = createButton(move);
-        moveButton.classList.add("attack-options");
+        moveButton.classList.add("attack-options")
+        moveButton.classList.add("btn");
         playerOptions.append(moveButton);
       }
     }
   }
 };
 
-const renderBattlePokemon = (currentPlayer) => {
-  const img = createImgWithName(currentPlayer);
+const renderBattlePokemon = (pokemon) => {
+  const img = createImgWithName(pokemon);
   player1.appendChild(img);
-  addHealthBar(player1);
-};
+  const healthBar = createHealthBar()
+  healthBarColor = healthBar.firstChild
+  healthBarColor.classList.add(pokemon)
+  player1.appendChild(healthBar)
 
-// event listener on moves buttons -> decrement opponents HP accordingly
-// randomly select opponent move -> decrement player's HP
-// check HP - when someone is dead, announce winner
+};
 
 const selectPlayerMove = () => {
   const attackOptions = document.querySelectorAll(".attack-options");
@@ -149,11 +151,28 @@ const selectPlayerMove = () => {
 const attack = (sender, receiver, move) => {
     const damageHP = getMoveHP(sender, move)
     let targetHP = getPokemonHP(receiver)
+    percentDamage = damageHP/targetHP
     pokemonDetailsObject[receiver].hp = targetHP - damageHP
     console.log(`${receiver}'s HP is now ${pokemonDetailsObject[receiver].hp}`)
     checkIsAlive(receiver)
+    reduceHP(receiver, percentDamage)
 }
 
+// adjust HP bar
+const reduceHP = (receiver, percentDamage) => {
+    const remainingHP = 1-percentDamage
+    const healthStatus = document.getElementsByClassName('health-bar squirtle');
+    console.log(healthStatus)
+    healthStatus[0].style.width = 0.8 // adjust to damage/health % 
+}
+
+// randomly select opponent move - tbc 
+const randomOpponentMove = (opponent) => {
+    let moves = pokemonDetailsObject[opponent].moves
+    console.log(moves)
+}
+
+// check HP - when someone is dead, announce winner after 2s 
 const checkIsAlive = (pokemon) => {
     if (pokemonDetailsObject[pokemon].hp <= 0) {
         pokemonDetailsObject[pokemon].isAlive = false;
@@ -168,7 +187,10 @@ window.addEventListener("load", () => {
   renderBattlePokemon(currentPlayer);
   renderBattlePokemon(currentOpponent);
   selectPlayerMove();
+  randomOpponentMove(currentOpponent)
 });
+
+
 
 //-------------- Helper Functions --------------//
 
