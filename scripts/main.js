@@ -100,8 +100,8 @@ const selectActiveCharacter = () => {
 const activatePlayButton = () => {
   playButton.pointerEvents = "auto";
   playButton.addEventListener("click", () => {
-    //   announceCurrentPokemon();
     console.log("play button clicked");
+    //   announceCurrentPokemon();
   });
 };
 
@@ -119,7 +119,7 @@ const generateMoves = (breed) => {
     if (breed === element.name) {
       for (let move in element.moves) {
         const moveButton = createButton(move);
-        moveButton.classList.add("attack-options")
+        moveButton.classList.add("attack-options");
         moveButton.classList.add("btn");
         playerOptions.append(moveButton);
       }
@@ -130,67 +130,74 @@ const generateMoves = (breed) => {
 const renderBattlePokemon = (pokemon) => {
   const img = createImgWithName(pokemon);
   player1.appendChild(img);
-  const healthBar = createHealthBar()
-  healthBarColor = healthBar.firstChild
-  healthBarColor.classList.add(pokemon)
-  player1.appendChild(healthBar)
-
+  const healthBar = createHealthBar();
+  healthBarColor = healthBar.firstChild;
+  healthBarColor.classList.add(pokemon);
+  player1.appendChild(healthBar);
 };
 
 const selectPlayerMove = () => {
   const attackOptions = document.querySelectorAll(".attack-options");
   for (let option of attackOptions) {
-    option.addEventListener('click', (evt) => {
-        let selectedMove = evt.target.innerHTML
-        console.log(selectedMove)
-        attack(currentPlayer, currentOpponent, selectedMove)
-    })
+    option.addEventListener("click", (evt) => {
+      let selectedMove = evt.target.innerHTML;
+      console.log(selectedMove);
+      attack(currentPlayer, currentOpponent, selectedMove);
+    //   reduceHP(currentOpponent, selectedMove);
+    });
   }
 };
 
 const attack = (sender, receiver, move) => {
-    const damageHP = getMoveHP(sender, move)
-    let targetHP = getPokemonHP(receiver)
-    percentDamage = damageHP/targetHP
-    pokemonDetailsObject[receiver].hp = targetHP - damageHP
-    console.log(`${receiver}'s HP is now ${pokemonDetailsObject[receiver].hp}`)
-    checkIsAlive(receiver)
-    reduceHP(receiver, percentDamage)
-}
+  const damageHP = getMoveHP(sender, move);
+  let targetHP = getPokemonHP(receiver);
+  percentDamage = Math.floor(((damageHP / targetHP) * 100));
+  pokemonDetailsObject[receiver].hp = targetHP - damageHP;
+  console.log(`${receiver}'s HP is now ${pokemonDetailsObject[receiver].hp}`);
+  checkIsAlive(receiver);
+  reduceHP(receiver, percentDamage)
+};
 
-// adjust HP bar
 const reduceHP = (receiver, percentDamage) => {
-    const remainingHP = 1-percentDamage
-    const healthStatus = document.getElementsByClassName('health-bar squirtle');
-    console.log(healthStatus)
-    healthStatus[0].style.width = 0.8 // adjust to damage/health % 
-}
+  const remainingHP = 100 - percentDamage;
+  const stringHP = remainingHP.toString() + `%`
+  const healthStatus = document.getElementsByClassName("health-bar squirtle");
+  healthStatus[0].style.width = stringHP; 
+};
 
-// randomly select opponent move - tbc 
+// randomly select opponent move - tbc
 const randomOpponentMove = (opponent) => {
-    let moves = pokemonDetailsObject[opponent].moves
-    console.log(moves)
+  let moves = pokemonDetailsObject[opponent].moves;
+  pickRandomKey(moves)
+};
+
+const pickRandomKey = (obj) => {
+    let keys = Object.keys(obj)
+    let randInt = generateRandomInteger(0, keys.length)
+    console.log(keys[randInt])
+    return obj[randInt]
 }
 
-// check HP - when someone is dead, announce winner after 2s 
+// if dead, remove from active array
+
+// check HP, annouce dead if dead
 const checkIsAlive = (pokemon) => {
-    if (pokemonDetailsObject[pokemon].hp <= 0) {
-        pokemonDetailsObject[pokemon].isAlive = false;
-        console.log("dead")
-    } else {
-        console.log("still alive")
-    }
-}
+  if (pokemonDetailsObject[pokemon].hp <= 0) {
+    pokemonDetailsObject[pokemon].isAlive = false;
+    console.log("dead");
+  } else {
+    console.log("still alive");
+  }
+};
 
+// 
 window.addEventListener("load", () => {
   generateMoves(currentPlayer);
   renderBattlePokemon(currentPlayer);
   renderBattlePokemon(currentOpponent);
   selectPlayerMove();
-  randomOpponentMove(currentOpponent)
+  randomOpponentMove(currentOpponent);
 });
-
-
 
 //-------------- Helper Functions --------------//
 
@@ -263,15 +270,15 @@ const createButton = (value) => {
 };
 
 const getPokemonDetailsWithName = (name) => {
-    return allPokemonDetails.filter(pokemon => pokemon.name === name)
-}
+  return allPokemonDetails.filter((pokemon) => pokemon.name === name);
+};
 
 const getMoveHP = (pokemon, move) => {
-    const detailsObject = getPokemonDetailsWithName(pokemon)
-    const hp = detailsObject[0].moves[move]
-    return hp 
-}
+  const detailsObject = getPokemonDetailsWithName(pokemon);
+  const hp = detailsObject[0].moves[move];
+  return hp;
+};
 
 const getPokemonHP = (pokemon) => {
-    return pokemonDetailsObject[pokemon].hp
-}
+  return pokemonDetailsObject[pokemon].hp;
+};
