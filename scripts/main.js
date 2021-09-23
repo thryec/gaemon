@@ -176,7 +176,7 @@ const narrateGame = (sender, receiver, move) => {
 const reduceHP = (receiver, percentDamage) => {
   const remainingHP = 100 - percentDamage;
   const stringHP = remainingHP.toString() + `%`;
-  const healthStatus = document.getElementsByClassName("health-bar squirtle");
+  const healthStatus = document.getElementsByClassName(`health-bar ${receiver}`);
   healthStatus[0].style.width = stringHP;
 };
 
