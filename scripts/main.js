@@ -6,7 +6,7 @@ let opponentArr = [];
 let currentPlayer = "charmander";
 let currentOpponent = "squirtle";
 let roundCount = 0;
-let playersTurn = true; // incorporate this
+let playersTurn = true; 
 
 //-------------- Create Info Boxes --------------//
 
@@ -161,19 +161,8 @@ const commentaryBar = document.querySelector(".game-commentary");
 
 const playerAttack = (sender, receiver, move) => {
   const damageHP = getMoveHP(sender, move);
-  // percentDamage = Math.floor((damageHP / targetHP) * 100);
   reduceHP(receiver, damageHP);
   showGameCommentary(sender, receiver, move);
-};
-
-const oppAttack = (sender, receiver, move) => {
-  if (playersTurn) {
-    const damageHP = getMoveHP(sender, move);
-    let targetHP = getPokemonHP(receiver);
-    // percentDamage = Math.floor((damageHP / targetHP) * 100);
-    pokemonDetailsObject[receiver].hp = targetHP - damageHP;
-    reduceHP(receiver, percentDamage);
-  }
 };
 
 // while player and opponent are alive, run game round
@@ -188,8 +177,9 @@ const opponentAttacks = (player, opponent) => {
   playersTurn = true;
   console.log("start opponent attack");
   let opponentMove = selectRandomMove(opponent);
-  console.log(opponentMove);
-  oppAttack(opponent, player, opponentMove);
+  console.log(`${opponent} used ${opponentMove}`);
+  const damageHP = getMoveHP(opponent, opponentMove);
+  reduceHP(player, damageHP);
   console.log("end opponent attack");
 };
 
@@ -317,9 +307,9 @@ const showGameCommentary = (sender, receiver, move) => {
   setTimeout(() => {
     commentaryBar.innerHTML = effect;
   }, 1500);
-  // setTimeout(() => {
-  //   opponentAttacks(currentPlayer, currentOpponent);
-  // }, 4000);
+  setTimeout(() => {
+    opponentAttacks(currentPlayer, currentOpponent);
+  }, 4000);
 };
 
 const narrateGame = (sender, receiver, move) => {
