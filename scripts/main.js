@@ -139,31 +139,46 @@ const renderBattlePokemon = (pokemon) => {
 const selectPlayerMove = () => {
   const attackOptions = document.querySelectorAll(".attack-options");
   for (let option of attackOptions) {
-    option.addEventListener("click", (evt) => {handleClick(evt)});
+    option.addEventListener("click", (evt) => {
+      handleClick(evt);
+      playersTurn = false;
+    });
   }
 };
 
 const handleClick = (evt) => {
   let selectedMove = evt.target.innerHTML;
   console.log(selectedMove);
-  attack(currentPlayer, currentOpponent, selectedMove);
+  playerAttack(currentPlayer, currentOpponent, selectedMove);
 };
 
-const playerPromise = new Promise((resolve, reject) => {
-  resolve("player has made selection");
-});
-
-playerPromise.then((data) => console.log(data));
+// const playerPromise = new Promise((resolve, reject) => {
+//   handleClick(evt);
+//   resolve("move selected");
+// });
+// playerPromise.then((data) => console.log(data));
 
 const commentaryBar = document.querySelector(".game-commentary");
 
-const attack = (sender, receiver, move) => {
-  const damageHP = getMoveHP(sender, move);
-  let targetHP = getPokemonHP(receiver);
-  percentDamage = Math.floor((damageHP / targetHP) * 100);
-  pokemonDetailsObject[receiver].hp = targetHP - damageHP;
-  showGameCommentary(sender, receiver, move);
-  reduceHP(receiver, percentDamage);
+const playerAttack = (sender, receiver, move) => {
+  if (playersTurn) {
+    const damageHP = getMoveHP(sender, move);
+    let targetHP = getPokemonHP(receiver);
+    percentDamage = Math.floor((damageHP / targetHP) * 100);
+    pokemonDetailsObject[receiver].hp = targetHP - damageHP;
+    reduceHP(receiver, percentDamage);
+    showGameCommentary(sender, receiver, move);
+  }
+};
+
+const oppAttack = (sender, receiver, move) => {
+  if (playersTurn) {
+    const damageHP = getMoveHP(sender, move);
+    let targetHP = getPokemonHP(receiver);
+    percentDamage = Math.floor((damageHP / targetHP) * 100);
+    pokemonDetailsObject[receiver].hp = targetHP - damageHP;
+    reduceHP(receiver, percentDamage);
+  }
 };
 
 // while player and opponent are alive, run game round
@@ -175,10 +190,11 @@ const startRound = (player, opponent) => {
 };
 
 const opponentAttacks = (player, opponent) => {
+  playersTurn = true;
   console.log("start opponent attack");
   let opponentMove = selectRandomMove(opponent);
   console.log(opponentMove);
-  attack(opponent, player, opponentMove);
+  oppAttack(opponent, player, opponentMove);
   console.log("end opponent attack");
 };
 
@@ -306,6 +322,9 @@ const showGameCommentary = (sender, receiver, move) => {
   setTimeout(() => {
     commentaryBar.innerHTML = effect;
   }, 1500);
+  setTimeout(() => {
+    opponentAttacks(currentPlayer, currentOpponent);
+  }, 4000);
 };
 
 const narrateGame = (sender, receiver, move) => {
@@ -315,10 +334,12 @@ const narrateGame = (sender, receiver, move) => {
 };
 
 const reduceHP = (receiver, percentDamage) => {
-  const remainingHP = 100 - percentDamage;
-  const stringHP = remainingHP.toString() + `%`;
+  // check if receiver is already dead 
   const healthStatus = document.getElementsByClassName(
     `health-bar ${receiver}`
   );
-  healthStatus[0].style.width = stringHP;
+    const remainingHP = 100 - percentDamage;
+    const stringHP = remainingHP.toString() + `%`;
+    console.log(`${receiver}'s HP is ${stringHP}`)
+    healthStatus[0].style.width = stringHP;
 };
