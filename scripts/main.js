@@ -136,6 +136,7 @@ const renderBattlePokemon = (pokemon) => {
   player1.appendChild(healthBar);
 };
 
+// pokemon-factory-v2
 const selectPlayerMove = () => {
   const attackOptions = document.querySelectorAll(".attack-options");
   for (let option of attackOptions) {
@@ -214,6 +215,45 @@ const checkIfAlive = (pokemon) => {
   } else {
     return true;
   }
+
+// assign pokemon object to current player
+const getPokemonDetailsWithName = (name) => {
+  return allPokemonDetails.filter((pokemon) => pokemon.name === name);
+};
+
+// event listener on moves buttons -> decrement opponents HP accordingly
+// randomly select opponent move -> decrement player's HP
+// check HP - when someone is dead, announce winner
+
+const selectMove = () => {
+  const attackOptions = document.querySelectorAll(".attack-options");
+  for (let option of attackOptions) {
+    option.addEventListener("click", (evt) => {
+      let selectedMove = evt.target.innerHTML;
+      const attackHP = getMoveHP(currentPlayer, selectedMove);
+      attackOpponent(currentOpponent, attackHP);
+    });
+  }
+};
+
+const attackOpponent = (opponent, damage) => {
+  let opponentHP = getPokemonHealth(opponent);
+  opponentHP -= damage;
+  console.log(opponentHP);
+  return opponentHP;
+};
+
+const getMoveHP = (pokemon, move) => {
+  const pokemonDetails = getPokemonDetailsWithName(pokemon);
+  const hp = pokemonDetails[0].moves[move];
+  return hp;
+};
+
+const getPokemonHealth = (pokemon) => {
+  const pokemonDetails = getPokemonDetailsWithName(pokemon);
+  const health = pokemonDetails[0].hp;
+  return health;
+
 };
 
 //
@@ -295,6 +335,8 @@ const createButton = (value) => {
   btn.innerHTML = value;
   return btn;
 };
+  
+// pokemon-factory-v2
 
 const getPokemonDetailsWithName = (name) => {
   return allPokemonDetails.filter((pokemon) => pokemon.name === name);
