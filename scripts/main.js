@@ -154,48 +154,47 @@ const attack = (sender, receiver, move) => {
   let targetHP = getPokemonHP(receiver);
   percentDamage = Math.floor((damageHP / targetHP) * 100);
   pokemonDetailsObject[receiver].hp = targetHP - damageHP;
-  showGameCommentary(sender, receiver, move)
-  checkIsAlive(receiver);
+  showGameCommentary(sender, receiver, move);
+  checkIfAlive(receiver);
   reduceHP(receiver, percentDamage);
 };
 
-const showGameCommentary = (sender, receiver, move) => {
-  let [action, effect] = narrateGame(sender, receiver, move);
-  commentaryBar.innerHTML = action;
-  setTimeout(() => {
-    commentaryBar.innerHTML = effect;
-  }, 1500);
+// while player and opponent are alive, run game round
+const startRound = (player, opponent) => {
+  console.log(checkIfAlive(player));
+  console.log(checkIfAlive(opponent));
+  // while (checkIfAlive(player) && checkIfAlive(opponent)) {
+  //   commentaryBar.innerHTML = "Please select a move for your Pokemon: ";
+  //   while (playersTurn) {
+  //     selectPlayerMove();
+  //     playersTurn = false;
+  //   }
+  // }
 };
 
-const narrateGame = (sender, receiver, move) => {
-  const action = `${sender} used ${move}....`;
-  const effect = `${receiver}'s HP is now ${pokemonDetailsObject[receiver].hp}`;
-  return [action, effect];
+const opponentAttacks = (player, opponent) => {
+  console.log('start attack')
+  let opponentMove = selectRandomMove(opponent);
+  console.log(opponentMove);
+  attack(opponent, player, opponentMove);
+  console.log('end attack')
 };
 
-const reduceHP = (receiver, percentDamage) => {
-  const remainingHP = 100 - percentDamage;
-  const stringHP = remainingHP.toString() + `%`;
-  const healthStatus = document.getElementsByClassName(`health-bar ${receiver}`);
-  healthStatus[0].style.width = stringHP;
-};
-
-// randomly select move
 const selectRandomMove = (opponent) => {
   let moves = pokemonDetailsObject[opponent].moves;
   let selectedMove = pickRandomKey(moves);
-  console.log(selectedMove);
+  return selectedMove
 };
 
 // if dead, remove from active array
 
 // check HP, annouce dead if dead
-const checkIsAlive = (pokemon) => {
+const checkIfAlive = (pokemon) => {
   if (pokemonDetailsObject[pokemon].hp <= 0) {
     pokemonDetailsObject[pokemon].isAlive = false;
-    console.log("dead");
+    return false;
   } else {
-    console.log("still alive");
+    return true;
   }
 };
 
@@ -205,7 +204,8 @@ window.addEventListener("load", () => {
   renderBattlePokemon(currentPlayer);
   renderBattlePokemon(currentOpponent);
   selectPlayerMove();
-  selectRandomMove(currentOpponent);
+  startRound(currentPlayer, currentOpponent);
+  // opponentAttacks(currentPlayer, currentOpponent);
 });
 
 //-------------- Helper Functions --------------//
@@ -296,4 +296,27 @@ const pickRandomKey = (obj) => {
   let keys = Object.keys(obj);
   let randInt = generateRandomInteger(0, keys.length);
   return keys[randInt];
+};
+
+const showGameCommentary = (sender, receiver, move) => {
+  let [action, effect] = narrateGame(sender, receiver, move);
+  commentaryBar.innerHTML = action;
+  setTimeout(() => {
+    commentaryBar.innerHTML = effect;
+  }, 1500);
+};
+
+const narrateGame = (sender, receiver, move) => {
+  const action = `${sender} used ${move}....`;
+  const effect = `${receiver}'s HP is now ${pokemonDetailsObject[receiver].hp}`;
+  return [action, effect];
+};
+
+const reduceHP = (receiver, percentDamage) => {
+  const remainingHP = 100 - percentDamage;
+  const stringHP = remainingHP.toString() + `%`;
+  const healthStatus = document.getElementsByClassName(
+    `health-bar ${receiver}`
+  );
+  healthStatus[0].style.width = stringHP;
 };
