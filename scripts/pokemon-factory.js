@@ -116,8 +116,6 @@ const createAllPokemon = () => {
 
 createAllPokemon();
 
-console.log(allPokemonDetails);
-
 const convertToObject = () => {
   for (let pokemon of allPokemonDetails) {
     let key = pokemon.name;

@@ -136,13 +136,11 @@ const renderBattlePokemon = (pokemon) => {
   player1.appendChild(healthBar);
 };
 
-// pokemon-factory-v2
 const selectPlayerMove = () => {
   const attackOptions = document.querySelectorAll(".attack-options");
   for (let option of attackOptions) {
     option.addEventListener("click", (evt) => {
       handleClick(evt);
-      playersTurn = false;
     });
   }
 };
@@ -162,21 +160,17 @@ const handleClick = (evt) => {
 const commentaryBar = document.querySelector(".game-commentary");
 
 const playerAttack = (sender, receiver, move) => {
-  if (playersTurn) {
-    const damageHP = getMoveHP(sender, move);
-    let targetHP = getPokemonHP(receiver);
-    percentDamage = Math.floor((damageHP / targetHP) * 100);
-    pokemonDetailsObject[receiver].hp = targetHP - damageHP;
-    reduceHP(receiver, percentDamage);
-    showGameCommentary(sender, receiver, move);
-  }
+  const damageHP = getMoveHP(sender, move);
+  // percentDamage = Math.floor((damageHP / targetHP) * 100);
+  reduceHP(receiver, damageHP);
+  showGameCommentary(sender, receiver, move);
 };
 
 const oppAttack = (sender, receiver, move) => {
   if (playersTurn) {
     const damageHP = getMoveHP(sender, move);
     let targetHP = getPokemonHP(receiver);
-    percentDamage = Math.floor((damageHP / targetHP) * 100);
+    // percentDamage = Math.floor((damageHP / targetHP) * 100);
     pokemonDetailsObject[receiver].hp = targetHP - damageHP;
     reduceHP(receiver, percentDamage);
   }
@@ -215,45 +209,6 @@ const checkIfAlive = (pokemon) => {
   } else {
     return true;
   }
-
-// assign pokemon object to current player
-const getPokemonDetailsWithName = (name) => {
-  return allPokemonDetails.filter((pokemon) => pokemon.name === name);
-};
-
-// event listener on moves buttons -> decrement opponents HP accordingly
-// randomly select opponent move -> decrement player's HP
-// check HP - when someone is dead, announce winner
-
-const selectMove = () => {
-  const attackOptions = document.querySelectorAll(".attack-options");
-  for (let option of attackOptions) {
-    option.addEventListener("click", (evt) => {
-      let selectedMove = evt.target.innerHTML;
-      const attackHP = getMoveHP(currentPlayer, selectedMove);
-      attackOpponent(currentOpponent, attackHP);
-    });
-  }
-};
-
-const attackOpponent = (opponent, damage) => {
-  let opponentHP = getPokemonHealth(opponent);
-  opponentHP -= damage;
-  console.log(opponentHP);
-  return opponentHP;
-};
-
-const getMoveHP = (pokemon, move) => {
-  const pokemonDetails = getPokemonDetailsWithName(pokemon);
-  const hp = pokemonDetails[0].moves[move];
-  return hp;
-};
-
-const getPokemonHealth = (pokemon) => {
-  const pokemonDetails = getPokemonDetailsWithName(pokemon);
-  const health = pokemonDetails[0].hp;
-  return health;
-
 };
 
 //
@@ -335,8 +290,6 @@ const createButton = (value) => {
   btn.innerHTML = value;
   return btn;
 };
-  
-// pokemon-factory-v2
 
 const getPokemonDetailsWithName = (name) => {
   return allPokemonDetails.filter((pokemon) => pokemon.name === name);
@@ -364,9 +317,9 @@ const showGameCommentary = (sender, receiver, move) => {
   setTimeout(() => {
     commentaryBar.innerHTML = effect;
   }, 1500);
-  setTimeout(() => {
-    opponentAttacks(currentPlayer, currentOpponent);
-  }, 4000);
+  // setTimeout(() => {
+  //   opponentAttacks(currentPlayer, currentOpponent);
+  // }, 4000);
 };
 
 const narrateGame = (sender, receiver, move) => {
@@ -375,13 +328,20 @@ const narrateGame = (sender, receiver, move) => {
   return [action, effect];
 };
 
-const reduceHP = (receiver, percentDamage) => {
-  // check if receiver is already dead 
+const reduceHP = (receiver, damageHP) => {
   const healthStatus = document.getElementsByClassName(
     `health-bar ${receiver}`
   );
-    const remainingHP = 100 - percentDamage;
-    const stringHP = remainingHP.toString() + `%`;
-    console.log(`${receiver}'s HP is ${stringHP}`)
-    healthStatus[0].style.width = stringHP;
+  let targetHP = getPokemonHP(receiver);
+  console.log(`${receiver}'s hp is ${targetHP}`);
+  pokemonDetailsObject[receiver].hp = targetHP - damageHP;
+  const remainingHP = ((targetHP - damageHP) / targetHP) * 100;
+  const stringHP = remainingHP.toString() + `%`;
+  healthStatus[0].style.width = stringHP;
+
+  if (pokemonDetailsObject[receiver].hp < 0) {
+    healthStatus[0].style.width = "100%"
+    healthStatus[0].style.backgroundColor = "red";
+    commentaryBar.innerHTML = `${receiver} is dead`
+  } 
 };
