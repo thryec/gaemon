@@ -139,13 +139,21 @@ const renderBattlePokemon = (pokemon) => {
 const selectPlayerMove = () => {
   const attackOptions = document.querySelectorAll(".attack-options");
   for (let option of attackOptions) {
-    option.addEventListener("click", (evt) => {
-      let selectedMove = evt.target.innerHTML;
-      console.log(selectedMove);
-      attack(currentPlayer, currentOpponent, selectedMove);
-    });
+    option.addEventListener("click", (evt) => {handleClick(evt)});
   }
 };
+
+const handleClick = (evt) => {
+  let selectedMove = evt.target.innerHTML;
+  console.log(selectedMove);
+  attack(currentPlayer, currentOpponent, selectedMove);
+};
+
+const playerPromise = new Promise((resolve, reject) => {
+  resolve("player has made selection");
+});
+
+playerPromise.then((data) => console.log(data));
 
 const commentaryBar = document.querySelector(".game-commentary");
 
@@ -155,35 +163,29 @@ const attack = (sender, receiver, move) => {
   percentDamage = Math.floor((damageHP / targetHP) * 100);
   pokemonDetailsObject[receiver].hp = targetHP - damageHP;
   showGameCommentary(sender, receiver, move);
-  checkIfAlive(receiver);
   reduceHP(receiver, percentDamage);
 };
 
 // while player and opponent are alive, run game round
 const startRound = (player, opponent) => {
-  console.log(checkIfAlive(player));
-  console.log(checkIfAlive(opponent));
-  // while (checkIfAlive(player) && checkIfAlive(opponent)) {
-  //   commentaryBar.innerHTML = "Please select a move for your Pokemon: ";
-  //   while (playersTurn) {
-  //     selectPlayerMove();
-  //     playersTurn = false;
-  //   }
-  // }
+  commentaryBar.innerHTML = "Please select a move for your Pokemon: ";
+  if (checkIfAlive(player) && checkIfAlive(opponent)) {
+    // selectPlayerMove();
+  }
 };
 
 const opponentAttacks = (player, opponent) => {
-  console.log('start attack')
+  console.log("start opponent attack");
   let opponentMove = selectRandomMove(opponent);
   console.log(opponentMove);
   attack(opponent, player, opponentMove);
-  console.log('end attack')
+  console.log("end opponent attack");
 };
 
 const selectRandomMove = (opponent) => {
   let moves = pokemonDetailsObject[opponent].moves;
   let selectedMove = pickRandomKey(moves);
-  return selectedMove
+  return selectedMove;
 };
 
 // if dead, remove from active array
