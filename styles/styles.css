@@ -105,11 +105,13 @@ table {
 
 
 .player-moves {
-    background-color: #CCC;
+    background-color: rgb(230, 227, 227);
+    border: 2px solid black;
+    border-radius: 20px;
     position: absolute;
     width: 90%;
     left: 35px; 
-    top: 850px; 
+    top: 800px; 
 }
 
 .battle-character {
@@ -119,16 +121,23 @@ table {
 .attack-options {
     background-color: aqua;
     border: none; 
-    font-size: 20px;
+    font-size: 25px;
     margin: 2%;
     padding: 2%;
     cursor: pointer;
 }
 
 .game-commentary {
+    background-color: rgb(230, 227, 227);
+    border: 2px solid black;
+    border-radius: 10px;
+    color: rgb(30,30,30);
     font-size: 20px;
     font-weight: bold;
-    color: rgb(30,30,30)
+    position: absolute;
+    left: 35px;
+    top: 730px;
+    width: 90%; 
 }
 
 
@@ -158,6 +167,7 @@ table {
 .btn {
     font-size: 19px;
     font-weight: bold;
+    color: rgb(50,50,50)
 }
 
 /* Text */
