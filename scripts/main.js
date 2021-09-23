@@ -143,40 +143,49 @@ const selectPlayerMove = () => {
       let selectedMove = evt.target.innerHTML;
       console.log(selectedMove);
       attack(currentPlayer, currentOpponent, selectedMove);
-    //   reduceHP(currentOpponent, selectedMove);
     });
   }
 };
 
+const commentaryBar = document.querySelector(".game-commentary");
+
 const attack = (sender, receiver, move) => {
   const damageHP = getMoveHP(sender, move);
   let targetHP = getPokemonHP(receiver);
-  percentDamage = Math.floor(((damageHP / targetHP) * 100));
+  percentDamage = Math.floor((damageHP / targetHP) * 100);
   pokemonDetailsObject[receiver].hp = targetHP - damageHP;
-  console.log(`${receiver}'s HP is now ${pokemonDetailsObject[receiver].hp}`);
+  showGameCommentary(sender, receiver, move)
   checkIsAlive(receiver);
-  reduceHP(receiver, percentDamage)
+  reduceHP(receiver, percentDamage);
+};
+
+const showGameCommentary = (sender, receiver, move) => {
+  let [action, effect] = narrateGame(sender, receiver, move);
+  commentaryBar.innerHTML = action;
+  setTimeout(() => {
+    commentaryBar.innerHTML = effect;
+  }, 1500);
+};
+
+const narrateGame = (sender, receiver, move) => {
+  const action = `${sender} used ${move}....`;
+  const effect = `${receiver}'s HP is now ${pokemonDetailsObject[receiver].hp}`;
+  return [action, effect];
 };
 
 const reduceHP = (receiver, percentDamage) => {
   const remainingHP = 100 - percentDamage;
-  const stringHP = remainingHP.toString() + `%`
+  const stringHP = remainingHP.toString() + `%`;
   const healthStatus = document.getElementsByClassName("health-bar squirtle");
-  healthStatus[0].style.width = stringHP; 
+  healthStatus[0].style.width = stringHP;
 };
 
-// randomly select opponent move - tbc
-const randomOpponentMove = (opponent) => {
+// randomly select move
+const selectRandomMove = (opponent) => {
   let moves = pokemonDetailsObject[opponent].moves;
-  pickRandomKey(moves)
+  let selectedMove = pickRandomKey(moves);
+  console.log(selectedMove);
 };
-
-const pickRandomKey = (obj) => {
-    let keys = Object.keys(obj)
-    let randInt = generateRandomInteger(0, keys.length)
-    console.log(keys[randInt])
-    return obj[randInt]
-}
 
 // if dead, remove from active array
 
@@ -190,13 +199,13 @@ const checkIsAlive = (pokemon) => {
   }
 };
 
-// 
+//
 window.addEventListener("load", () => {
   generateMoves(currentPlayer);
   renderBattlePokemon(currentPlayer);
   renderBattlePokemon(currentOpponent);
   selectPlayerMove();
-  randomOpponentMove(currentOpponent);
+  selectRandomMove(currentOpponent);
 });
 
 //-------------- Helper Functions --------------//
@@ -281,4 +290,10 @@ const getMoveHP = (pokemon, move) => {
 
 const getPokemonHP = (pokemon) => {
   return pokemonDetailsObject[pokemon].hp;
+};
+
+const pickRandomKey = (obj) => {
+  let keys = Object.keys(obj);
+  let randInt = generateRandomInteger(0, keys.length);
+  return keys[randInt];
 };
