@@ -50,6 +50,7 @@ body {
 
 button.confirm-team-btn {
     /* position: fixed;  */
+    color: white;
     margin-top: 15%;
     border: none;
     width: 200px; 
@@ -103,11 +104,15 @@ table {
     /* display: none; */
 }
 
-
-.player-moves {
+.bg-box {
     background-color: rgb(230, 227, 227);
     border: 2px solid black;
     border-radius: 20px;
+    color: rgb(30,30,30);
+}
+
+.player-moves {
+
     position: absolute;
     width: 90%;
     left: 35px; 
@@ -128,10 +133,7 @@ table {
 }
 
 .game-commentary {
-    background-color: rgb(230, 227, 227);
-    border: 2px solid black;
     border-radius: 10px;
-    color: rgb(30,30,30);
     font-size: 20px;
     font-weight: bold;
     position: absolute;

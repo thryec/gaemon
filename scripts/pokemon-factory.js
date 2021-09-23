@@ -17,7 +17,7 @@ const starterPokemonArr = [
   {
     name: "squirtle",
     image: "../img/squirtle.png",
-    moves: { Headbutt: 10, Watergun: 12, Bite: 8, Confusion: 5 },
+    moves: { Headbutt: 20, Watergun: 12, Bite: 8, Confusion: 5 },
   },
   {
     name: "bulbasaur",
@@ -27,7 +27,7 @@ const starterPokemonArr = [
   {
     name: "charmander",
     image: "../img/charmander.png",
-    moves: { Firepunch: 20, Scratch: 7, Bodyslam: 8, Megakick: 5 },
+    moves: { Firepunch: 10, Scratch: 7, Bodyslam: 8, Megakick: 5 },
   },
   {
     name: "mudkip",

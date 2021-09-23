@@ -6,7 +6,7 @@ let opponentArr = [];
 let currentPlayer = "charmander";
 let currentOpponent = "squirtle";
 let roundCount = 0;
-let playersTurn = true; 
+let playersTurn = true;
 
 //-------------- Create Info Boxes --------------//
 
@@ -100,6 +100,7 @@ const selectActiveCharacter = () => {
 const activatePlayButton = () => {
   playButton.pointerEvents = "auto";
   playButton.addEventListener("click", () => {
+    roundCount++;
     console.log("play button clicked");
     //   announceCurrentPokemon();
   });
@@ -162,7 +163,15 @@ const commentaryBar = document.querySelector(".game-commentary");
 const playerAttack = (sender, receiver, move) => {
   const damageHP = getMoveHP(sender, move);
   reduceHP(receiver, damageHP);
-  showGameCommentary(sender, receiver, move);
+  playerGameCommentary(sender, receiver, move);
+};
+
+const opponentAttacks = (player, opponent) => {
+  let opponentMove = selectRandomMove(opponent);
+  console.log(`${opponent} used ${opponentMove}`);
+  const damageHP = getMoveHP(opponent, opponentMove);
+  reduceHP(player, damageHP);
+  opponentGameCommentary(opponent, player, opponentMove);
 };
 
 // while player and opponent are alive, run game round
@@ -172,24 +181,6 @@ const startRound = (player, opponent) => {
     // selectPlayerMove();
   }
 };
-
-const opponentAttacks = (player, opponent) => {
-  playersTurn = true;
-  console.log("start opponent attack");
-  let opponentMove = selectRandomMove(opponent);
-  console.log(`${opponent} used ${opponentMove}`);
-  const damageHP = getMoveHP(opponent, opponentMove);
-  reduceHP(player, damageHP);
-  console.log("end opponent attack");
-};
-
-const selectRandomMove = (opponent) => {
-  let moves = pokemonDetailsObject[opponent].moves;
-  let selectedMove = pickRandomKey(moves);
-  return selectedMove;
-};
-
-// if dead, remove from active array
 
 // check HP, annouce dead if dead
 const checkIfAlive = (pokemon) => {
@@ -201,19 +192,9 @@ const checkIfAlive = (pokemon) => {
   }
 };
 
-//
-window.addEventListener("load", () => {
-  generateMoves(currentPlayer);
-  renderBattlePokemon(currentPlayer);
-  renderBattlePokemon(currentOpponent);
-  selectPlayerMove();
-  startRound(currentPlayer, currentOpponent);
-  // opponentAttacks(currentPlayer, currentOpponent);
-});
-
 //-------------- Helper Functions --------------//
 
-const showGameCommentary = (sender, receiver, move) => {
+const playerGameCommentary = (sender, receiver, move) => {
   let [action, effect] = narrateGame(sender, receiver, move);
   commentaryBar.innerHTML = action;
   setTimeout(() => {
@@ -224,10 +205,12 @@ const showGameCommentary = (sender, receiver, move) => {
   }, 4000);
 };
 
-const narrateGame = (sender, receiver, move) => {
-  const action = `${sender} used ${move}....`;
-  const effect = `${receiver}'s HP is now ${pokemonDetailsObject[receiver].hp}`;
-  return [action, effect];
+const opponentGameCommentary = (sender, receiver, move) => {
+  let [action, effect] = narrateGame(sender, receiver, move);
+  commentaryBar.innerHTML = action;
+  setTimeout(() => {
+    commentaryBar.innerHTML = effect;
+  }, 1500);
 };
 
 const reduceHP = (receiver, damageHP) => {
@@ -242,8 +225,18 @@ const reduceHP = (receiver, damageHP) => {
   healthStatus[0].style.width = stringHP;
 
   if (pokemonDetailsObject[receiver].hp < 0) {
-    healthStatus[0].style.width = "100%"
+    healthStatus[0].style.width = "100%";
     healthStatus[0].style.backgroundColor = "red";
-    commentaryBar.innerHTML = `${receiver} is dead`
-  } 
+    commentaryBar.innerHTML = `${receiver} is dead`;
+  }
 };
+
+//-------------- Window Event Listener --------------//
+
+window.addEventListener("load", () => {
+  generateMoves(currentPlayer);
+  renderBattlePokemon(currentPlayer);
+  renderBattlePokemon(currentOpponent);
+  selectPlayerMove();
+  startRound(currentPlayer, currentOpponent);
+});

@@ -85,3 +85,15 @@ const pickRandomKey = (obj) => {
   let randInt = generateRandomInteger(0, keys.length);
   return keys[randInt];
 };
+
+const selectRandomMove = (opponent) => {
+  let moves = pokemonDetailsObject[opponent].moves;
+  let selectedMove = pickRandomKey(moves);
+  return selectedMove;
+};
+
+const narrateGame = (sender, receiver, move) => {
+  const action = `${sender} used ${move}....`;
+  const effect = `${receiver}'s HP is now ${pokemonDetailsObject[receiver].hp}`;
+  return [action, effect];
+};
