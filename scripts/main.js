@@ -91,7 +91,7 @@ const selectActiveCharacter = () => {
   for (let option of playersCharacters) {
     option.addEventListener("click", (evt) => {
       currentPlayer = evt.target.getAttribute("value");
-      console.log(currentPlayer);
+      console.log(`Player has selected ${currentPlayer}`);
       activatePlayButton();
     });
   }
@@ -112,6 +112,7 @@ const title = document.querySelector(".title-round-1");
 const playerOptions = document.querySelector(".player-moves");
 const player1 = document.querySelector(".player1");
 const opponent1 = document.querySelector(".opponent1");
+const commentaryBar = document.querySelector(".game-commentary");
 
 title.innerHTML = `Round ${roundCount}`;
 
@@ -152,14 +153,6 @@ const handleClick = (evt) => {
   playerAttack(currentPlayer, currentOpponent, selectedMove);
 };
 
-// const playerPromise = new Promise((resolve, reject) => {
-//   handleClick(evt);
-//   resolve("move selected");
-// });
-// playerPromise.then((data) => console.log(data));
-
-const commentaryBar = document.querySelector(".game-commentary");
-
 const playerAttack = (sender, receiver, move) => {
   const damageHP = getMoveHP(sender, move);
   reduceHP(receiver, damageHP);
@@ -194,15 +187,17 @@ const checkIfAlive = (pokemon) => {
 
 //-------------- Helper Functions --------------//
 
-const playerGameCommentary = (sender, receiver, move) => {
+const playerGameCommentary = async (sender, receiver, move) => {
   let [action, effect] = narrateGame(sender, receiver, move);
   commentaryBar.innerHTML = action;
-  setTimeout(() => {
-    commentaryBar.innerHTML = effect;
-  }, 1500);
-  setTimeout(() => {
-    opponentAttacks(currentPlayer, currentOpponent);
-  }, 4000);
+  const timeout = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      commentaryBar.innerHTML = effect;
+      resolve();
+    }, 2000);
+  });
+  await timeout;
+  opponentAttacks(currentPlayer, currentOpponent);
 };
 
 const opponentGameCommentary = (sender, receiver, move) => {
@@ -210,7 +205,7 @@ const opponentGameCommentary = (sender, receiver, move) => {
   commentaryBar.innerHTML = action;
   setTimeout(() => {
     commentaryBar.innerHTML = effect;
-  }, 1500);
+  }, 2000);
 };
 
 const reduceHP = (receiver, damageHP) => {
@@ -234,6 +229,7 @@ const reduceHP = (receiver, damageHP) => {
 //-------------- Window Event Listener --------------//
 
 window.addEventListener("load", () => {
+  activatePlayButton(); 
   generateMoves(currentPlayer);
   renderBattlePokemon(currentPlayer);
   renderBattlePokemon(currentOpponent);

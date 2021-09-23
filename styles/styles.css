@@ -24,7 +24,16 @@ body {
   text-align: center;
   padding-top: 20% ;
   position: relative;
-  display: none;
+  /* display: none; */
+}
+
+.input-name {
+    box-shadow: 0 2px 10px 1px rgba(0,0,0,0.5);
+    padding: 10px;
+}
+
+.input-details {
+ margin-top: 10%;
 }
 
 /* Page 2 - Pokemon Selection */
@@ -34,18 +43,28 @@ body {
   display: none;
 }
 
+.selection-page h1 {
+    padding: 2% 5%; 
+}
+
 .team-members {
-    /* background-color: rgba(200,200,200,0.6); */
-    width: 900px;
-    height: 550px;
+    margin: auto;
+    width: 60%; 
+    height: 50%; 
 }
 
 .pokemon-box {
-    display: inline;
+    display: inline-block;
+    padding: 1% 4%; 
 }
 
-.pokemon-box.img {
+.pokemon-img {
     display: block;
+    margin: 5%;
+}
+
+.pokemon-info {
+    /* background-color: red; */
 }
 
 button.confirm-team-btn {
@@ -79,12 +98,18 @@ table {
 }
 
 .players-team-page h1 {
-    padding: 5%;
+    padding: 6%; 
 }
 
 .stats-box {
     display: inline-block;
     text-align: center;
+    padding: 3%; 
+
+}
+
+.character-stats {
+    margin: 5%; 
 }
 
 .play-button {
@@ -93,6 +118,7 @@ table {
     height: 50px;
     font-size: 20px;
     pointer-events: none;
+    margin-top: 20%;
 }
 
 
@@ -101,7 +127,7 @@ table {
 .battle-round-1 {
     text-align: center;
     width: 100%;
-    /* display: none; */
+    display: none;
 }
 
 .bg-box {
@@ -112,7 +138,6 @@ table {
 }
 
 .player-moves {
-
     position: absolute;
     width: 90%;
     left: 35px; 
@@ -126,6 +151,7 @@ table {
 .attack-options {
     background-color: aqua;
     border: none; 
+    border-radius: 10px;
     font-size: 25px;
     margin: 2%;
     padding: 2%;
@@ -169,7 +195,8 @@ table {
 .btn {
     font-size: 19px;
     font-weight: bold;
-    color: rgb(50,50,50)
+    color: rgb(50,50,50);
+    border-radius: 10px;
 }
 
 /* Text */
