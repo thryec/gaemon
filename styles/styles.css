@@ -125,6 +125,13 @@ table {
     cursor: pointer;
 }
 
+.game-commentary {
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(30,30,30)
+}
+
+
 /* Health Bar  */
 
 .health-bar-container { 
@@ -144,4 +151,19 @@ table {
     background-color:chartreuse;
     font-size: 18px;
     font-weight: bold;
+}
+
+/* Buttons */
+
+.btn {
+    font-size: 19px;
+    font-weight: bold;
+}
+
+/* Text */
+
+h1 {
+    font-size: 40px;
+    font-weight: bold;
+    color: rgb(30,30,30)
 }

@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pokemon</title>
+    <!-- MDB -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./styles/styles.css" />
   </head>
   <body>
@@ -12,8 +17,8 @@
     <div class="title-page sea-background">
       <img src="img/gaemon.png" alt="gaemon" />
       <div class="input-details">
-        <input type="text" />
-        <button class="submit-pg1">Enter Game</button>
+        <input type="text" class="input-name"/>
+        <button class="submit-pg1 btn btn-light">Enter Game</button>
       </div>
     </div>
 
@@ -24,11 +29,11 @@
       <div class="team-members">
         <div class="pokemon-box">
           <img class="pokemon-img" src="img/squirtle.png" value="squirtle" />
-          <button class="pokemon-info">More Info</button>
+          <button class="pokemon-info btn btn-light">More Info</button>
         </div>
         <div class="pokemon-box">
           <img class="pokemon-img" src="img/bulbasaur.png" value="bulbasaur" />
-          <button class="pokemon-info">More Info</button>
+          <button class="pokemon-info btn btn-light">More Info</button>
         </div>
         <div class="pokemon-box">
           <img
@@ -36,22 +41,22 @@
             src="img/charmander.png"
             value="charmander"
           />
-          <button class="pokemon-info">More Info</button>
+          <button class="pokemon-info btn btn-light">More Info</button>
         </div>
         <div class="pokemon-box">
           <img class="pokemon-img" src="img/mudkip.png" value="mudkip" />
-          <button class="pokemon-info">More Info</button>
+          <button class="pokemon-info btn btn-light">More Info</button>
         </div>
         <div class="pokemon-box">
           <img class="pokemon-img" src="img/treecko.png" value="treecko" />
-          <button class="pokemon-info">More Info</button>
+          <button class="pokemon-info btn btn-light">More Info</button>
         </div>
         <div class="pokemon-box">
           <img class="pokemon-img" src="img/torchic.png" value="torchic" />
-          <button class="pokemon-info">More Info</button>
+          <button class="pokemon-info btn btn-light">More Info</button>
         </div>
       </div>
-      <button class="confirm-team-btn">Confirm Team</button>
+      <button class="confirm-team-btn btn btn-dark">Confirm Team</button>
     </div>
 
     <!-- Page 2.1 - Pop-Up Modal for Pokemon Info (TBC) -->
@@ -75,20 +80,20 @@
     <!-- Page 3 - Show Current Team -->
 
     <div class="players-team-page sea-background">
-        <h1>Select your first contender:</h1>
+      <h1>Select your first contender:</h1>
       <div class="display-team"></div>
-      <button class="play-button">Play</button>
+      <button class="play-button btn btn-light">Play</button>
     </div>
 
     <!-- Page 4 - Round 1 -->
 
     <div class="battle-round-1 battle-background">
-        <h1 class="title-round-1"></h1>
-        <div class="player1 battle-character"></div>
-        <div class="opponent1 battle-character"></div>
-        <div class="player-moves"></div>
+      <h1 class="title-round-1"></h1>
+      <div class="player1 battle-character"></div>
+      <div class="opponent1 battle-character"></div>
+      <div class="game-commentary">Game Commentary</div>
+      <div class="player-moves"></div>
     </div>
-
 
     <!-- Scripts -->
 

@@ -1,6 +1,7 @@
 //-------------- Pokemon Variables --------------//
 
 const allPokemonDetails = [];
+const pokemonDetailsObject = {};
 const pokemonApiUrl = "https://pokeapi.co/api/v2/pokemon";
 
 const starterPokemonNames = [
@@ -26,7 +27,7 @@ const starterPokemonArr = [
   {
     name: "charmander",
     image: "../img/charmander.png",
-    moves: { Firepunch: 10, Scratch: 7, Bodyslam: 8, Megakick: 5 },
+    moves: { Firepunch: 20, Scratch: 7, Bodyslam: 8, Megakick: 5 },
   },
   {
     name: "mudkip",
@@ -67,7 +68,7 @@ const getPokemonPromise = async (breed) => {
     const details = await response.json();
     return details;
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 };
 
@@ -107,11 +108,26 @@ const createPokemon = async (breed) => {
   allPokemonDetails.push(pokemon);
 };
 
-const createAllPokemon = async () => {
+const createAllPokemon = () => {
   for (element of starterPokemonArr) {
     createPokemon(element.name);
   }
 };
 
 createAllPokemon();
+
+console.log(allPokemonDetails);
+
+const convertToObject = () => {
+  for (let pokemon of allPokemonDetails) {
+    let key = pokemon.name;
+    pokemonDetailsObject[key] = pokemon;
+  }
+};
+
+window.addEventListener("load", () => {
+  convertToObject();
+});
+
 console.log(allPokemonDetails)
+
