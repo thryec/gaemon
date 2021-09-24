@@ -51,6 +51,8 @@ const announceCurrentPokemon = () => {
     console.log(
       `Player is using ${currentPlayer}, Opponent is using ${currentOpponent}`
     );
+  } else {
+    console.log('player not specified')
   }
 };
 

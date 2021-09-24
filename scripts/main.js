@@ -3,8 +3,8 @@
 let playerName = "";
 let playerArr = [];
 let opponentArr = [];
-let currentPlayer = "charmander";
-let currentOpponent = "squirtle";
+let currentPlayer = "";
+let currentOpponent = "";
 let roundCount = 0;
 let playersTurn = true;
 
@@ -103,6 +103,11 @@ const activatePlayButton = () => {
     playersTeamPage.style.display = "none"
     battlePage.style.display = "block"
   });
+  announceCurrentPokemon(); 
+  generateMoves(currentPlayer);
+  renderBattlePokemon(currentPlayer, player1);
+  renderBattlePokemon(currentOpponent, opponent1);
+  selectPlayerMove();
 };
 
 const battlePage = document.querySelector('.battle-round-1')
@@ -249,9 +254,5 @@ const reduceHP = (receiver, damageHP) => {
 //-------------- Window Event Listener --------------//
 
 window.addEventListener("load", () => {
-  generateMoves(currentPlayer);
-  renderBattlePokemon(currentPlayer, player1);
-  renderBattlePokemon(currentOpponent, opponent1);
-  selectPlayerMove();
-  startRound(currentPlayer, currentOpponent);
+  // startRound(currentPlayer, currentOpponent);
 });
