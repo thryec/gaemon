@@ -93,7 +93,14 @@ const selectRandomMove = (opponent) => {
 };
 
 const narrateGame = (sender, receiver, move) => {
-  const action = `${sender} used ${move}....`;
-  const effect = `${receiver}'s HP is now ${pokemonDetailsObject[receiver].hp}`;
+  let action = ''
+  let effect = ''
+  if(pokemonDetailsObject[receiver].hp > 0) {
+    action = `${sender} used ${move}....`;
+    effect = `${receiver}'s HP is now ${pokemonDetailsObject[receiver].hp}`;
+  } else {
+    action = `${sender} used ${move}....`;
+    effect = `${receiver} is dead`;
+  }
   return [action, effect];
 };

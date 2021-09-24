@@ -23,8 +23,7 @@ body {
 .title-page {
   text-align: center;
   padding-top: 20%;
-  position: relative;
-  display: none;
+  /* display: none; */
 }
 
 .input-name {
@@ -129,7 +128,7 @@ table {
 
 .battle-round-1 {
   text-align: center;
-  /* display: none; */
+  display: none;
 }
 
 .battle-container {
@@ -147,12 +146,11 @@ table {
   margin: 0 4%; 
 }
 
-
-
 .battle-character h3 {
     font-size: 30px;
     color: rgb(30, 30, 30);
     font-weight: bold;
+    text-decoration: underline;
   }
 
 .battle-character img {
@@ -199,6 +197,10 @@ table {
   left: 35px;
   top: 730px;
   width: 90%;
+}
+
+.remove-character {
+    display: none;
 }
 
 /* Health Bar  */

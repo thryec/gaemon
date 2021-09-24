@@ -17,8 +17,6 @@ const titlePage = document.querySelector(".title-page");
 const selectionPage = document.querySelector(".selection-page");
 const playersTeamPage = document.querySelector(".players-team-page");
 
-// Submit button takes player input and displays on next page
-
 const submitBtn = document.querySelector(".submit-pg1");
 submitBtn.addEventListener("click", () => {
   let inputBox = document.querySelector("input");
@@ -98,13 +96,16 @@ const selectActiveCharacter = () => {
 };
 
 const activatePlayButton = () => {
-  playButton.pointerEvents = "auto";
+  playButton.style.pointerEvents = "auto";
   playButton.addEventListener("click", () => {
     roundCount++;
     console.log("play button clicked");
-    //   announceCurrentPokemon();
+    playersTeamPage.style.display = "none"
+    battlePage.style.display = "block"
   });
 };
+
+const battlePage = document.querySelector('.battle-round-1')
 
 //-------------- Page 4 --------------//
 
@@ -190,22 +191,41 @@ const checkIfAlive = (pokemon) => {
 const playerGameCommentary = async (sender, receiver, move) => {
   let [action, effect] = narrateGame(sender, receiver, move);
   commentaryBar.innerHTML = action;
-  const timeout = new Promise((resolve, reject) => {
+  const timeout = new Promise((resolve) => {
     setTimeout(() => {
       commentaryBar.innerHTML = effect;
       resolve();
     }, 2000);
   });
   await timeout;
-  opponentAttacks(currentPlayer, currentOpponent);
+  if (checkIfAlive(receiver)) {
+    setTimeout(() => {
+      opponentAttacks(currentPlayer, currentOpponent);
+    }, 4000);
+  } else {
+    const index = opponentArr[receiver]
+    opponentArr.splice(index, 1)
+    console.log(opponentArr)
+    pokemonDetailsObject[receiver].isAlive = false 
+    console.log(pokemonDetailsObject[receiver].isAlive)
+  }
 };
 
-const opponentGameCommentary = (sender, receiver, move) => {
+const opponentGameCommentary = async (sender, receiver, move) => {
   let [action, effect] = narrateGame(sender, receiver, move);
   commentaryBar.innerHTML = action;
-  setTimeout(() => {
-    commentaryBar.innerHTML = effect;
-  }, 2000);
+  const timeout = new Promise((resolve) => {
+    setTimeout(() => {
+      commentaryBar.innerHTML = effect;
+      resolve();
+    }, 2000);
+  });
+  await timeout;
+  if (checkIfAlive(receiver)) {
+    setTimeout(() => {
+      commentaryBar.innerHTML = "Please select your next move: ";
+    }, 3000);
+  }
 };
 
 const reduceHP = (receiver, damageHP) => {
@@ -213,7 +233,7 @@ const reduceHP = (receiver, damageHP) => {
     `health-bar ${receiver}`
   );
   let targetHP = getPokemonHP(receiver);
-  console.log(`${receiver}'s hp is ${targetHP}`);
+
   pokemonDetailsObject[receiver].hp = targetHP - damageHP;
   const remainingHP = ((targetHP - damageHP) / targetHP) * 100;
   const stringHP = remainingHP.toString() + `%`;
@@ -229,7 +249,6 @@ const reduceHP = (receiver, damageHP) => {
 //-------------- Window Event Listener --------------//
 
 window.addEventListener("load", () => {
-  activatePlayButton(); 
   generateMoves(currentPlayer);
   renderBattlePokemon(currentPlayer, player1);
   renderBattlePokemon(currentOpponent, opponent1);

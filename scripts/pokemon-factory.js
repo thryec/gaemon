@@ -27,7 +27,7 @@ const starterPokemonArr = [
   {
     name: "charmander",
     image: "../img/charmander.png",
-    moves: { Firepunch: 10, Scratch: 7, Bodyslam: 8, Megakick: 5 },
+    moves: { Firepunch: 50, Scratch: 7, Bodyslam: 8, Megakick: 5 },
   },
   {
     name: "mudkip",
