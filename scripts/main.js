@@ -129,13 +129,13 @@ const generateMoves = (breed) => {
   }
 };
 
-const renderBattlePokemon = (pokemon) => {
+const renderBattlePokemon = (pokemon, parentNode) => {
   const img = createImgWithName(pokemon);
-  player1.appendChild(img);
+  parentNode.appendChild(img);
   const healthBar = createHealthBar();
   healthBarColor = healthBar.firstChild;
   healthBarColor.classList.add(pokemon);
-  player1.appendChild(healthBar);
+  parentNode.appendChild(healthBar);
 };
 
 const selectPlayerMove = () => {
@@ -231,8 +231,8 @@ const reduceHP = (receiver, damageHP) => {
 window.addEventListener("load", () => {
   activatePlayButton(); 
   generateMoves(currentPlayer);
-  renderBattlePokemon(currentPlayer);
-  renderBattlePokemon(currentOpponent);
+  renderBattlePokemon(currentPlayer, player1);
+  renderBattlePokemon(currentOpponent, opponent1);
   selectPlayerMove();
   startRound(currentPlayer, currentOpponent);
 });
