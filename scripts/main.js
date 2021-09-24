@@ -8,16 +8,27 @@ let currentOpponent = "";
 let roundCount = 0;
 let playersTurn = true;
 
-//-------------- Create Info Boxes --------------//
+//-------------- Page/Container Elements --------------//
 
-//-------------- Page 1 --------------//
-
-// Extract page elements
 const titlePage = document.querySelector(".title-page");
 const selectionPage = document.querySelector(".selection-page");
 const playersTeamPage = document.querySelector(".players-team-page");
+const teamDisplay = document.querySelector(".display-team");
+const title = document.querySelector(".title-round-1");
+const player1 = document.querySelector(".player1");
+const opponent1 = document.querySelector(".opponent1");
+const commentaryBar = document.querySelector(".game-commentary");
+
+//-------------- Button/Image Elements --------------//
 
 const submitBtn = document.querySelector(".submit-pg1");
+const confirmButton = document.querySelector(".confirm-team-btn");
+const avatars = document.querySelectorAll(".pokemon-img");
+const playButton = document.querySelector(".play-button");
+const playerOptions = document.querySelector(".player-moves");
+
+//-------------- Page 1 --------------//
+
 submitBtn.addEventListener("click", () => {
   let inputBox = document.querySelector("input");
   playerName = inputBox.value;
@@ -30,9 +41,6 @@ submitBtn.addEventListener("click", () => {
 
 //-------------- Page 2 --------------//
 // Adds selected pokemons into players array
-
-const avatars = document.querySelectorAll(".pokemon-img");
-const confirmButton = document.querySelector(".confirm-team-btn");
 
 avatars.forEach((element) => {
   element.addEventListener("click", () => {
@@ -55,12 +63,11 @@ confirmButton.addEventListener("click", () => {
   playersTeamPage.style.display = "block";
 });
 
+//-------------- Page 2.2 --------------//
 // Generate more info modal (low priority)
 
+
 //-------------- Page 3 --------------//
-// Generate pokemon in player's team
-const teamDisplay = document.querySelector(".display-team");
-const playButton = document.querySelector(".play-button");
 
 const showPlayerSelection = () => {
   for (let element of allPokemonDetails) {
@@ -113,12 +120,6 @@ const activatePlayButton = () => {
 const battlePage = document.querySelector('.battle-round-1')
 
 //-------------- Page 4 --------------//
-
-const title = document.querySelector(".title-round-1");
-const playerOptions = document.querySelector(".player-moves");
-const player1 = document.querySelector(".player1");
-const opponent1 = document.querySelector(".opponent1");
-const commentaryBar = document.querySelector(".game-commentary");
 
 title.innerHTML = `Round ${roundCount}`;
 
