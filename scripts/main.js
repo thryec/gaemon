@@ -23,7 +23,7 @@ const showPlayerSelection = () => {
         img.classList.add("character-stats");
         img.setAttribute("value", key);
         displayWithStats.appendChild(img);
-        render.addHealthBar(selected, displayWithStats);
+        render.addHealthBar(displayWithStats);
       }
     }
   }
@@ -108,7 +108,11 @@ const returnPlayersSelection = () => {
   teamDisplay.innerHTML = "";
   battlePage.style.display = "none";
   playersTeamPage.style.display = "block";
-  showPlayerSelection();
+  for (let element of playerArr) {
+    setup.renderBattlePokemon(element, teamDisplay)
+  }
+  setup.selectRandomOpponent();
+  buttons.selectActiveCharacter();
   if (stats.checkIfAlive(currentPlayer)) {
     const healthStatus = document.getElementsByClassName(
       `health-bar ${currentPlayer}`

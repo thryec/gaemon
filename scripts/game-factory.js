@@ -6,7 +6,7 @@ const game = {
     const healthStatus = document.getElementsByClassName(
       `health-bar ${receiver}`
     );
-    console.log(healthStatus[0])
+    console.log(healthStatus)
     pokemonDetailsObject[receiver].hp = targetHP - damageHP;
     if (pokemonDetailsObject[receiver].hp < 0) {
       healthStatus[0].style.width = "100%";
