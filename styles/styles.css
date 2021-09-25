@@ -127,32 +127,30 @@ table {
 }
 
 .battle-container {
-    margin: auto;
-    background-color: rgba(200, 200, 200, 0.4);
-    backdrop-filter: blur(10px);
-    padding: 5%;
-    margin-top: 100px;
-    width: 100%; 
+  margin: auto;
+  background-color: rgba(200, 200, 200, 0.4);
+  backdrop-filter: blur(10px);
+  padding: 5%;
 }
 
 .battle-character {
   display: inline-block;
   width: 40%;
-  margin: 0 4%; 
+  margin: 0 4%;
 }
 
 .battle-character h3 {
-    font-size: 30px;
-    color: rgb(30, 30, 30);
-    font-weight: bold;
-    text-decoration: underline;
-  }
+  font-size: 30px;
+  color: rgb(30, 30, 30);
+  font-weight: bold;
+  text-decoration: underline;
+}
 
 .battle-character img {
   display: block;
   margin: 0 auto;
   padding: 5%;
-  max-height: 280px;
+  height: 280px;
   max-width: 280px;
 }
 
@@ -196,7 +194,7 @@ table {
 }
 
 .remove-character {
-    display: none;
+  display: none;
 }
 
 /* Health Bar  */

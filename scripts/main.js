@@ -31,46 +31,12 @@ const playerOptions = document.querySelector(".player-moves");
 //-------------- Page 1 --------------//
 
 submitBtn.addEventListener("click", () => {
-  let inputBox = document.querySelector("input");
-  playerName = inputBox.value;
-  const playerGreeting = document.querySelector(".player-greeting");
-  playerGreeting.innerHTML = `Hi ${playerName}! Please select 3 Pokemon for your team.`;
-
-  titlePage.style.display = "none";
-  selectionPage.style.display = "block";
-  populatePlayersArray();
-  activateConfirmButton()
+  buttons.handleSubmitButton();
+  setup.populatePlayersArray();
+  buttons.activateConfirmButton()
 });
 
 //-------------- Page 2 --------------//
-// Adds selected pokemons into players array
-
-const populatePlayersArray = () => {
-  avatars.forEach((element) => {
-    element.addEventListener("click", () => {
-      if (!arrIsFull(playerArr)) {
-        const selectedPokemon = element.getAttribute("value");
-        playerArr.push(selectedPokemon);
-        element.style.pointerEvents = "none";
-        element.style.opacity = "0.5";
-      }
-      if (arrIsFull(playerArr)) {
-        confirmButton.style.pointerEvents = "auto";
-      }
-    });
-  });
-};
-
-const activateConfirmButton = () => {
-  confirmButton.addEventListener("click", () => {
-    addRemainingToOpponent();
-    showPlayerSelection();
-    selectionPage.style.display = "none";
-    playersTeamPage.style.display = "block";
-  });
-};
-
-//-------------- Page 2.2 --------------//
 // Generate more info modal (low priority)
 
 //-------------- Page 3 --------------//
@@ -83,16 +49,16 @@ const showPlayerSelection = () => {
         displayWithStats.classList.add("stats-box");
         teamDisplay.appendChild(displayWithStats);
 
-        const img = createImgWithURL(element.img);
+        const img = render.createImgWithURL(element.img);
         img.classList.add("character-stats");
         img.setAttribute("value", element.name);
         displayWithStats.appendChild(img);
 
-        addHealthBar(displayWithStats);
+        render.addHealthBar(displayWithStats);
       }
     }
   }
-  randomlySelectOpponent();
+  setup.randomlySelectOpponent();
   selectActiveCharacter();
 };
 
@@ -102,98 +68,54 @@ const selectActiveCharacter = () => {
   for (let option of playersCharacters) {
     option.addEventListener("click", (evt) => {
       currentPlayer = evt.target.getAttribute("value");
-      announceCurrentPokemon();
-      activatePlayButton();
+      test.announceCurrentPokemon();
+      buttons.activatePlayButton();
     });
   }
 };
 
-const activatePlayButton = () => {
-  playButton.style.pointerEvents = "auto";
-  playButton.addEventListener("click", () => {
-    playersTeamPage.style.display = "none";
-    battlePage.style.display = "block";
-  });
-  startRound();
-};
-
 //-------------- Page 4 --------------//
 
-// while player and opponent are alive, run game round
 const startRound = () => {
-  generateMoves(currentPlayer);
-  renderBattlePokemon(currentPlayer, player1);
-  renderBattlePokemon(currentOpponent, opponent1);
+  setup.generateMoves(currentPlayer);
+  setup.renderBattlePokemon(currentPlayer, player1);
+  setup.renderBattlePokemon(currentOpponent, opponent1);
   selectPlayerMove();
-};
-
-title.innerHTML = `Round ${roundCount}`;
-
-const generateMoves = (breed) => {
-  for (let element of allPokemonDetails) {
-    if (breed === element.name) {
-      for (let move in element.moves) {
-        const moveButton = createButton(move);
-        moveButton.classList.add("attack-options");
-        moveButton.classList.add("btn");
-        playerOptions.append(moveButton);
-      }
-    }
-  }
-};
-
-const renderBattlePokemon = (pokemon, parentNode) => {
-  const img = render.createImgWithName(pokemon);
-  parentNode.appendChild(img);
-  const healthBar = createHealthBar();
-  healthBarColor = healthBar.firstChild;
-  healthBarColor.classList.add(pokemon);
-  parentNode.appendChild(healthBar);
 };
 
 const selectPlayerMove = () => {
   const attackOptions = document.querySelectorAll(".attack-options");
   for (let option of attackOptions) {
     option.addEventListener("click", (evt) => {
-      handleClick(evt);
+      handleMoveClick(evt);
     });
   }
 };
 
-const handleClick = (evt) => {
+const handleMoveClick = (evt) => {
   let selectedMove = evt.target.innerHTML;
   console.log(selectedMove);
-  playerAttack(currentPlayer, currentOpponent, selectedMove);
+  playerAttacks(currentPlayer, currentOpponent, selectedMove);
 };
 
-const playerAttack = (sender, receiver, move) => {
-  const damageHP = getMoveHP(sender, move);
+const playerAttacks = (sender, receiver, move) => {
+  const damageHP = stats.getMoveHP(sender, move);
   reduceHP(receiver, damageHP);
   playerGameCommentary(sender, receiver, move);
 };
 
 const opponentAttacks = (player, opponent) => {
-  let opponentMove = selectRandomMove(opponent);
+  let opponentMove = setup.selectRandomMove(opponent);
   console.log(`${opponent} used ${opponentMove}`);
-  const damageHP = getMoveHP(opponent, opponentMove);
+  const damageHP = stats.getMoveHP(opponent, opponentMove);
   reduceHP(player, damageHP);
   opponentGameCommentary(opponent, player, opponentMove);
 };
 
-// check HP, annouce dead if dead
-const checkIfAlive = (pokemon) => {
-  if (pokemonDetailsObject[pokemon].hp <= 0) {
-    pokemonDetailsObject[pokemon].isAlive = false;
-    return false;
-  } else {
-    return true;
-  }
-};
-
-//-------------- Helper Functions --------------//
+//-------------- Game Functions --------------//
 
 const playerGameCommentary = async (sender, receiver, move) => {
-  let [action, effect] = narrateGame(sender, receiver, move);
+  let [action, effect] = render.narrateGame(sender, receiver, move);
   commentaryBar.innerHTML = action;
   const timeout = new Promise((resolve) => {
     setTimeout(() => {
@@ -202,7 +124,7 @@ const playerGameCommentary = async (sender, receiver, move) => {
     }, 2000);
   });
   await timeout;
-  if (checkIfAlive(receiver)) {
+  if (stats.checkIfAlive(receiver)) {
     setTimeout(() => {
       opponentAttacks(currentPlayer, currentOpponent);
     }, 2000);
@@ -216,7 +138,7 @@ const playerGameCommentary = async (sender, receiver, move) => {
 };
 
 const opponentGameCommentary = async (sender, receiver, move) => {
-  let [action, effect] = narrateGame(sender, receiver, move);
+  let [action, effect] = render.narrateGame(sender, receiver, move);
   commentaryBar.innerHTML = action;
   const timeout = new Promise((resolve) => {
     setTimeout(() => {
@@ -225,7 +147,7 @@ const opponentGameCommentary = async (sender, receiver, move) => {
     }, 2000);
   });
   await timeout;
-  if (checkIfAlive(receiver)) {
+  if (stats.checkIfAlive(receiver)) {
     setTimeout(() => {
       commentaryBar.innerHTML = "Please select your next move: ";
     }, 2000);
@@ -247,7 +169,7 @@ const reduceHP = (receiver, damageHP) => {
     healthStatus[0].style.backgroundColor = "red";
     commentaryBar.innerHTML = `${receiver} is dead`;
   }
-  let targetHP = getPokemonHP(receiver);
+  let targetHP = stats.getPokemonHP(receiver);
   pokemonDetailsObject[receiver].hp = targetHP - damageHP;
   const remainingHP = ((targetHP - damageHP) / targetHP) * 100;
   const stringHP = remainingHP.toString() + `%`;
