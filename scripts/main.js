@@ -110,8 +110,7 @@ const returnPlayersSelection = () => {
   playersTeamPage.style.display = "block";
   for (let pokemon of playerArr) {
     const div = document.createElement('div')
-    div.classList.add('stats-box','character-stats')
-    div.setAttribute('value', pokemon)
+    div.classList.add('stats-box')
     setup.renderBattlePokemon(pokemon, div)
     teamDisplay.appendChild(div)
   }

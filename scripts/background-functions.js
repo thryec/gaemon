@@ -41,7 +41,10 @@ const render = {
   createImgWithName: (breed) => {
     for (let element of allPokemonDetails) {
       if (breed === element.name) {
-        return render.createImgWithURL(element.img);
+        const img = render.createImgWithURL(element.img);
+        img.classList.add('character-stats')
+        img.setAttribute('value', breed)
+        return img
       }
     }
   },
