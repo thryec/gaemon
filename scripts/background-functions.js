@@ -58,14 +58,16 @@ const render = {
   narrateGame: (sender, receiver, move) => {
     let action = "";
     let effect = "";
+    let winner = ""
     if (pokemonDetailsObject[receiver].hp > 0) {
       action = `${sender} used ${move}....`;
       effect = `${receiver}'s HP is now ${pokemonDetailsObject[receiver].hp}`;
     } else {
       action = `${sender} used ${move}....`;
       effect = `${receiver} is dead`;
+      winner = `${sender} has won`
     }
-    return [action, effect];
+    return [action, effect, winner];
   },
   removeFadeOut: (el, speed) => {
     let seconds = speed / 1000;

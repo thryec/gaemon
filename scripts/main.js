@@ -71,7 +71,7 @@ const opponentAttacks = (sender, receiver) => {
 //-------------- Game Functions --------------//
 
 const playerGameCommentary = async (sender, receiver, move) => {
-  let [action, effect] = render.narrateGame(sender, receiver, move);
+  let [action, effect, winner] = render.narrateGame(sender, receiver, move);
   commentaryBar.innerHTML = action;
   const timeout = new Promise((resolve) => {
     setTimeout(() => {
@@ -86,9 +86,14 @@ const playerGameCommentary = async (sender, receiver, move) => {
       opponentAttacks(currentOpponent, currentPlayer);
     }, 2000);
   } else {
-    setTimeout(() => {
-      render.removeFadeOut(opponent1, 3000);
-    }, 1000);
+    const fadeout = new Promise(resolve => {
+      setTimeout(() => {
+        render.removeFadeOut(opponent1, 3000);
+        resolve()
+      }, 2500);
+    })
+    await fadeout
+    commentaryBar.innerHTML = winner; 
     const index = opponentArr.indexOf(receiver);
     opponentArr.splice(index, 1);
     console.log(`${opponentArr} are left in opponent's array`);
@@ -97,7 +102,7 @@ const playerGameCommentary = async (sender, receiver, move) => {
 };
 
 const opponentGameCommentary = async (sender, receiver, move) => {
-  let [action, effect] = render.narrateGame(sender, receiver, move);
+  let [action, effect, winner] = render.narrateGame(sender, receiver, move);
   commentaryBar.innerHTML = action;
   const timeout = new Promise((resolve) => {
     setTimeout(() => {
@@ -112,9 +117,14 @@ const opponentGameCommentary = async (sender, receiver, move) => {
       commentaryBar.innerHTML = "Please select your next move: ";
     }, 2000);
   } else {
-    setTimeout(() => {
-      render.removeFadeOut(player1, 3000);
-    }, 1000);
+    const fadeout = new Promise(resolve => {
+      setTimeout(() => {
+        render.removeFadeOut(player1, 3000);
+        resolve()
+      }, 2500);
+    })
+    await fadeout
+    commentaryBar.innerHTML = winner; 
     const index = playerArr.indexOf(receiver);
     playerArr.splice(index, 1);
     console.log(`${playerArr} are left in player's array`);

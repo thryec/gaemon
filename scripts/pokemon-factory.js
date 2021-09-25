@@ -17,7 +17,7 @@ const starterPokemonArr = [
   {
     name: "squirtle",
     image: "../img/squirtle.png",
-    moves: { Headbutt: 20, Watergun: 12, Bite: 8, Confusion: 5 },
+    moves: { Headbutt: 10, Watergun: 12, Bite: 8, Confusion: 5 },
   },
   {
     name: "bulbasaur",
@@ -32,17 +32,17 @@ const starterPokemonArr = [
   {
     name: "mudkip",
     image: "../img/mudkip.png",
-    moves: { Icebeam: 12, Headbutt: 10, Hydropump: 8, Stomp: 5 },
+    moves: { Icebeam: 120, Headbutt: 100, Hydropump: 80, Stomp: 50 },
   },
   {
     name: "treecko",
     image: "../img/treecko.png",
-    moves: { Tackle: 5, RazorWind: 12, Cut: 8, Pound: 5 },
+    moves: { Tackle: 50, RazorWind: 120, Cut: 80, Pound: 50 },
   },
   {
     name: "torchic",
     image: "../img/torchic.png",
-    moves: { Flamethrower: 5, Peck: 12, Scratch: 9, Sandattack: 5 },
+    moves: { Flamethrower: 50, Peck: 120, Scratch: 90, Sandattack: 50 },
   },
 ];
 
