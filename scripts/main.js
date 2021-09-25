@@ -101,29 +101,10 @@ const playerGameCommentary = async (sender, receiver, move) => {
     opponentArr.splice(index, 1);
     console.log(`${opponentArr} are left in opponent's array`);
     pokemonDetailsObject[receiver].isAlive = false;
+    setTimeout(() => {
+      returnPlayersSelection();
+    }, 3000);
   }
-};
-
-const returnPlayersSelection = () => {
-  teamDisplay.innerHTML = "";
-  battlePage.style.display = "none";
-  playersTeamPage.style.display = "block";
-  for (let pokemon of playerArr) {
-    const div = document.createElement('div')
-    div.classList.add('stats-box')
-    setup.renderBattlePokemon(pokemon, div)
-    teamDisplay.appendChild(div)
-  }
-  setup.selectRandomOpponent();
-  buttons.selectActiveCharacter();
-  if (stats.checkIfAlive(currentPlayer)) {
-    const healthStatus = document.getElementsByClassName(
-      `health-bar ${currentPlayer}`
-    );
-    healthStatus[0].style.width = currentPlayerHealth;
-    console.log(`${currentPlayer}'s health is ${healthStatus[0].style.width}`);
-  }
-  test.announceCurrentPokemon();
 };
 
 const opponentGameCommentary = async (sender, receiver, move) => {
@@ -158,3 +139,34 @@ const opponentGameCommentary = async (sender, receiver, move) => {
     }, 3000);
   }
 };
+
+const returnPlayersSelection = () => {
+  clearBattleArena(); 
+  teamDisplay.innerHTML = "";
+  battlePage.style.display = "none";
+  playersTeamPage.style.display = "block";
+  for (let pokemon of playerArr) {
+    const div = document.createElement('div')
+    div.classList.add('stats-box')
+    setup.renderBattlePokemon(pokemon, div)
+    teamDisplay.appendChild(div)
+  }
+  setup.selectRandomOpponent();
+  buttons.selectActiveCharacter();
+  if (stats.checkIfAlive(currentPlayer)) {
+    const healthStatus = document.getElementsByClassName(
+      `health-bar ${currentPlayer}`
+    );
+    healthStatus[0].style.width = currentPlayerHealth;
+    console.log(`${currentPlayer}'s health is ${healthStatus[0].style.width}`);
+  }
+};
+
+
+const clearBattleArena = () => {
+  roundCount++
+  title.innerHTML = `Round ${roundCount}`;
+  commentaryBar.innerHTML = "[Game Commentary]"
+  playerOptions.innerHTML = ""
+  battleCharacter.innerHTML = ""
+}

@@ -5,7 +5,7 @@ let playerArr = [];
 let opponentArr = [];
 let currentPlayer = "";
 let currentOpponent = "";
-let roundCount = 0;
+let roundCount = 1;
 let currentPlayerHealth = ''
 
 //-------------- Page/Container Elements --------------//
@@ -27,3 +27,4 @@ const confirmButton = document.querySelector(".confirm-team-btn");
 const avatars = document.querySelectorAll(".pokemon-img");
 const playButton = document.querySelector(".play-button");
 const playerOptions = document.querySelector(".player-moves");
+const battleCharacter = document.querySelector(".battle-character")
