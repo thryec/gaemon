@@ -67,12 +67,10 @@ const setup = {
     const img = render.createImgWithName(pokemon);
     parentNode.appendChild(img);
     const healthBar = render.createHealthBar();
-    healthBarColor = healthBar.firstChild;
-    healthBarColor.classList.add(pokemon);
+    healthBar.firstChild.classList.add(pokemon);
     parentNode.appendChild(healthBar);
   },
 };
-
 
 // 2. handle dead pokemon
 // 3. add type factor

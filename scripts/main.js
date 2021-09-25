@@ -19,11 +19,7 @@ const showPlayerSelection = () => {
         const displayWithStats = document.createElement("div");
         displayWithStats.classList.add("stats-box");
         teamDisplay.appendChild(displayWithStats);
-        const img = render.createImgWithURL(pokemonDetailsObject[key].img);
-        img.classList.add("character-stats");
-        img.setAttribute("value", key);
-        displayWithStats.appendChild(img);
-        render.addHealthBar(displayWithStats);
+        setup.renderBattlePokemon(selected, displayWithStats)
       }
     }
   }
@@ -107,9 +103,13 @@ const playerGameCommentary = async (sender, receiver, move) => {
 // if opponent dies, show selection page and render pokemon in players array
 const battleToSelection = () => {
   teamDisplay.innerHTML = "";
-  showPlayerSelection();
   battlePage.style.display = "none";
   playersTeamPage.style.display = "block";
+  console.log(pokemonDetailsObject[currentPlayer].hp)
+  for(let pokemon of playerArr) {
+    setup.renderBattlePokemon(pokemon, teamDisplay)
+  }
+
 };
 
 const opponentGameCommentary = async (sender, receiver, move) => {
@@ -142,3 +142,4 @@ const opponentGameCommentary = async (sender, receiver, move) => {
     pokemonDetailsObject[receiver].isAlive = false;
   }
 };
+
