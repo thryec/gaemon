@@ -19,7 +19,11 @@ const showPlayerSelection = () => {
         const displayWithStats = document.createElement("div");
         displayWithStats.classList.add("stats-box");
         teamDisplay.appendChild(displayWithStats);
-        setup.renderBattlePokemon(selected, displayWithStats)
+        const img = render.createImgWithURL(pokemonDetailsObject[key].img);
+        img.classList.add("character-stats");
+        img.setAttribute("value", key);
+        displayWithStats.appendChild(img);
+        render.addHealthBar(displayWithStats);
       }
     }
   }
@@ -109,7 +113,6 @@ const battleToSelection = () => {
   for(let pokemon of playerArr) {
     setup.renderBattlePokemon(pokemon, teamDisplay)
   }
-
 };
 
 const opponentGameCommentary = async (sender, receiver, move) => {
