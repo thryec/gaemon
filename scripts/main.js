@@ -40,6 +40,7 @@ title.innerHTML = `Round ${roundCount}`;
 // });
 
 const startRound = () => {
+  test.announceCurrentPokemon()
   setup.generateMoves(currentPlayer);
   setup.renderBattlePokemon(currentPlayer, player1);
   setup.renderBattlePokemon(currentOpponent, opponent1);
@@ -57,7 +58,6 @@ const selectPlayerMove = () => {
 
 const handleMoveClick = (evt) => {
   let selectedMove = evt.target.innerHTML;
-  console.log(selectedMove);
   playerAttacks(currentPlayer, currentOpponent, selectedMove);
 };
 
@@ -136,13 +136,14 @@ const opponentGameCommentary = async (sender, receiver, move) => {
     pokemonDetailsObject[receiver].isAlive = false;
     setTimeout(() => {
       returnPlayersSelection();
-    }, 3000);
+    }, 2000);
   }
 };
 
 const returnPlayersSelection = () => {
-  clearBattleArena(); 
-  teamDisplay.innerHTML = "";
+  setup.clearBattleArena(); 
+  setup.selectRandomOpponent();
+  test.announceCurrentPokemon(); 
   battlePage.style.display = "none";
   playersTeamPage.style.display = "block";
   for (let pokemon of playerArr) {
@@ -151,22 +152,16 @@ const returnPlayersSelection = () => {
     setup.renderBattlePokemon(pokemon, div)
     teamDisplay.appendChild(div)
   }
-  setup.selectRandomOpponent();
-  buttons.selectActiveCharacter();
   if (stats.checkIfAlive(currentPlayer)) {
-    const healthStatus = document.getElementsByClassName(
-      `health-bar ${currentPlayer}`
-    );
-    healthStatus[0].style.width = currentPlayerHealth;
-    console.log(`${currentPlayer}'s health is ${healthStatus[0].style.width}`);
+    reflectPokemonHealth(currentPlayer)
   }
+  buttons.selectActiveCharacter();
+
 };
 
-
-const clearBattleArena = () => {
-  roundCount++
-  title.innerHTML = `Round ${roundCount}`;
-  commentaryBar.innerHTML = "[Game Commentary]"
-  playerOptions.innerHTML = ""
-  battleCharacter.innerHTML = ""
+const reflectPokemonHealth = (pokemon) => {
+  const healthStatus = document.getElementsByClassName(
+    `health-bar ${pokemon}`
+  );
+  healthStatus[0].style.width = currentPlayerHealth;
 }

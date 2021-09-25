@@ -3,6 +3,64 @@
 // test: functions for testing functionality
 // stats: functions for getting pokemon stats
 
+const render = {
+  createButton: (value) => {
+    const btn = document.createElement("button");
+    btn.innerHTML = value;
+    return btn;
+  },
+  createImgWithName: (breed) => {
+    for (let element of allPokemonDetails) {
+      if (breed === element.name) {
+        const img = render.createImgWithURL(element.img);
+        img.classList.add("character-stats");
+        img.setAttribute("value", breed);
+        return img;
+      }
+    }
+  },
+  createImgWithURL: (urlPath) => {
+    let img = document.createElement("img");
+    img.src = urlPath;
+    return img;
+  },
+  createHealthBar: (pokemon) => {
+    const outerDiv = document.createElement("div");
+    const innerDiv = document.createElement("div");
+    outerDiv.classList.add("health-bar-container");
+    innerDiv.classList.add("health-bar");
+    innerDiv.classList.add(pokemon);
+    outerDiv.append(innerDiv);
+    return outerDiv;
+  },
+  addHealthBar: (parentDiv) => {
+    const bar = render.createHealthBar();
+    parentDiv.appendChild(bar);
+  },
+  narrateGame: (sender, receiver, move) => {
+    let action = "";
+    let effect = "";
+    let winner = "";
+    if (pokemonDetailsObject[receiver].hp > 0) {
+      action = `${sender} used ${move}....`;
+      effect = `${receiver}'s HP is now ${pokemonDetailsObject[receiver].hp}`;
+    } else {
+      action = `${sender} used ${move}....`;
+      effect = `${receiver} is dead`;
+      winner = `${sender} has won`;
+    }
+    return [action, effect, winner];
+  },
+  removeFadeOut: (el, speed) => {
+    let seconds = speed / 1000;
+    el.style.transition = "opacity " + seconds + "s ease";
+    el.style.opacity = 0;
+    setTimeout(() => {
+      el.parentNode.removeChild(el);
+    }, speed);
+  },
+};
+
 const stats = {
   getPokemonDetailsWithName: (name) => {
     return allPokemonDetails.filter((pokemon) => pokemon.name === name);
@@ -29,64 +87,6 @@ const stats = {
         return element.hp;
       }
     }
-  },
-};
-
-const render = {
-  createButton: (value) => {
-    const btn = document.createElement("button");
-    btn.innerHTML = value;
-    return btn;
-  },
-  createImgWithName: (breed) => {
-    for (let element of allPokemonDetails) {
-      if (breed === element.name) {
-        const img = render.createImgWithURL(element.img);
-        img.classList.add('character-stats')
-        img.setAttribute('value', breed)
-        return img
-      }
-    }
-  },
-  createImgWithURL: (urlPath) => {
-    let img = document.createElement("img");
-    img.src = urlPath;
-    return img;
-  },
-  createHealthBar: (pokemon) => {
-    const outerDiv = document.createElement("div");
-    const innerDiv = document.createElement("div");
-    outerDiv.classList.add("health-bar-container");
-    innerDiv.classList.add("health-bar");
-    innerDiv.classList.add(pokemon);
-    outerDiv.append(innerDiv);
-    return outerDiv;
-  },
-  addHealthBar: ( parentDiv) => {
-    const bar = render.createHealthBar();
-    parentDiv.appendChild(bar);
-  },
-  narrateGame: (sender, receiver, move) => {
-    let action = "";
-    let effect = "";
-    let winner = "";
-    if (pokemonDetailsObject[receiver].hp > 0) {
-      action = `${sender} used ${move}....`;
-      effect = `${receiver}'s HP is now ${pokemonDetailsObject[receiver].hp}`;
-    } else {
-      action = `${sender} used ${move}....`;
-      effect = `${receiver} is dead`;
-      winner = `${sender} has won`;
-    }
-    return [action, effect, winner];
-  },
-  removeFadeOut: (el, speed) => {
-    let seconds = speed / 1000;
-    el.style.transition = "opacity " + seconds + "s ease";
-    el.style.opacity = 0;
-    setTimeout(() => {
-      el.parentNode.removeChild(el);
-    }, speed);
   },
 };
 

@@ -63,6 +63,13 @@ const setup = {
       }
     }
   },
+  clearBattleArena: () => {
+    roundCount++
+    title.innerHTML = `Round ${roundCount}`;
+    commentaryBar.innerHTML = "[Game Commentary]"
+    playerOptions.innerHTML = ""
+    battleCharacter.innerHTML = ""
+  },
   renderBattlePokemon: (pokemon, parentNode) => {
     const img = render.createImgWithName(pokemon);
     parentNode.appendChild(img);

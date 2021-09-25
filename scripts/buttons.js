@@ -14,8 +14,9 @@ const buttons = {
     playButton.addEventListener("click", () => {
       playersTeamPage.style.display = "none";
       battlePage.style.display = "block";
+      teamDisplay.innerHTML = ""
+      startRound();
     });
-    startRound();
   },
   handleSubmitButton: () => {
     let inputBox = document.querySelector("input");
@@ -27,10 +28,15 @@ const buttons = {
   },
   selectActiveCharacter: () => {
     const playersCharacters = document.querySelectorAll(".character-stats");
+    console.log(playersCharacters)
+    // for (let option of playersCharacters) {
+    //   option.removeEventListener('click')
+    // }
     for (let option of playersCharacters) {
       option.addEventListener("click", (evt) => {
+        option.style.pointerEvents = "auto"
         currentPlayer = evt.target.getAttribute("value");
-        test.announceCurrentPokemon();
+        console.log(currentPlayer)
         buttons.activatePlayButton();
       });
     }
