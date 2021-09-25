@@ -46,7 +46,7 @@ const setup = {
     let selectedMove = admin.pickRandomKey(moves);
     return selectedMove;
   },
-  randomlySelectOpponent: () => {
+  selectRandomOpponent: () => {
     currentOpponent = "";
     const rand = admin.generateRandomInteger(0, 3);
     currentOpponent = opponentArr[rand];

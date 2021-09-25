@@ -16,33 +16,33 @@ const starterPokemonNames = [
 const starterPokemonArr = [
   {
     name: "squirtle",
-    image: "../img/squirtle.png",
-    moves: { Headbutt: 10, Watergun: 12, Bite: 8, Confusion: 5 },
+    image: "img/squirtle.png",
+    moves: { Headbutt: 20, Watergun: 12, Bite: 8, Confusion: 5 },
   },
   {
     name: "bulbasaur",
-    image: "../img/bulbasaur.png",
+    image: "img/bulbasaur.png",
     moves: { Razerleaf: 11, Leechseed: 12, Growth: 8, Cut: 5 },
   },
   {
     name: "charmander",
-    image: "../img/charmander.png",
+    image: "img/charmander.png",
     moves: { Firepunch: 12, Scratch: 7, Bodyslam: 8, Megakick: 5 },
   },
   {
     name: "mudkip",
-    image: "../img/mudkip.png",
-    moves: { Icebeam: 120, Headbutt: 100, Hydropump: 80, Stomp: 50 },
+    image: "img/mudkip.png",
+    moves: { Icebeam: 12, Headbutt: 10, Hydropump: 8, Stomp: 5 },
   },
   {
     name: "treecko",
-    image: "../img/treecko.png",
-    moves: { Tackle: 50, RazorWind: 120, Cut: 80, Pound: 50 },
+    image: "img/treecko.png",
+    moves: { Tackle: 5, RazorWind: 12, Cut: 8, Pound: 5 },
   },
   {
     name: "torchic",
-    image: "../img/torchic.png",
-    moves: { Flamethrower: 50, Peck: 120, Scratch: 90, Sandattack: 50 },
+    image: "img/torchic.png",
+    moves: { Flamethrower: 5, Peck: 12, Scratch: 9, Sandattack: 5 },
   },
 ];
 

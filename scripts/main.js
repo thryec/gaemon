@@ -9,7 +9,7 @@ submitBtn.addEventListener("click", () => {
 //-------------- Page 2 --------------//
 // Generate more info modal (low priority)
 
-//-------------- Page 3 --------------//
+//-------------- Page 3 - Selection Page --------------//
 // select candidate and assign to currentPlayer
 
 const showPlayerSelection = () => {
@@ -27,7 +27,7 @@ const showPlayerSelection = () => {
       }
     }
   }
-  setup.randomlySelectOpponent();
+  setup.selectRandomOpponent();
   buttons.selectActiveCharacter();
 };
 
@@ -98,8 +98,20 @@ const playerGameCommentary = async (sender, receiver, move) => {
     opponentArr.splice(index, 1);
     console.log(`${opponentArr} are left in opponent's array`);
     pokemonDetailsObject[receiver].isAlive = false;
+    setTimeout(() => {
+      battleToSelection(); 
+    }, 1000);
   }
 };
+
+// if opponent dies, show selection page and render pokemon in players array  
+const battleToSelection = () => {
+  teamDisplay.innerHTML = ""
+  showPlayerSelection(); 
+  battlePage.style.display = "none"
+  playersTeamPage.style.display = "block"
+}
+
 
 const opponentGameCommentary = async (sender, receiver, move) => {
   let [action, effect, winner] = render.narrateGame(sender, receiver, move);
