@@ -17,7 +17,7 @@ const starterPokemonArr = [
   {
     name: "squirtle",
     image: "../img/squirtle.png",
-    moves: { Headbutt: 50, Watergun: 12, Bite: 8, Confusion: 5 },
+    moves: { Headbutt: 20, Watergun: 12, Bite: 8, Confusion: 5 },
   },
   {
     name: "bulbasaur",

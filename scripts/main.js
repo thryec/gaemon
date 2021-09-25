@@ -80,19 +80,21 @@ const playerGameCommentary = async (sender, receiver, move) => {
     }, 2000);
   });
   await timeout;
-  // randomly generate next opponent from opponent's array 
+  // randomly generate next opponent from opponent's array
   if (stats.checkIfAlive(receiver)) {
     setTimeout(() => {
       opponentAttacks(currentOpponent, currentPlayer);
     }, 2000);
   } else {
+    setTimeout(() => {
+      render.removeFadeOut(opponent1, 3000);
+    }, 1000);
     const index = opponentArr.indexOf(receiver);
     opponentArr.splice(index, 1);
     console.log(`${opponentArr} are left in opponent's array`);
     pokemonDetailsObject[receiver].isAlive = false;
   }
 };
-
 
 const opponentGameCommentary = async (sender, receiver, move) => {
   let [action, effect] = render.narrateGame(sender, receiver, move);
@@ -104,12 +106,15 @@ const opponentGameCommentary = async (sender, receiver, move) => {
     }, 2000);
   });
   await timeout;
-  // render remaining pokemon in playerArr and prompt selection 
+  // render remaining pokemon in playerArr and prompt selection
   if (stats.checkIfAlive(receiver)) {
     setTimeout(() => {
       commentaryBar.innerHTML = "Please select your next move: ";
     }, 2000);
   } else {
+    setTimeout(() => {
+      render.removeFadeOut(player1, 3000);
+    }, 1000);
     const index = playerArr.indexOf(receiver);
     playerArr.splice(index, 1);
     console.log(`${playerArr} are left in player's array`);

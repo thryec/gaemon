@@ -67,6 +67,14 @@ const render = {
     }
     return [action, effect];
   },
+  removeFadeOut: (el, speed) => {
+    let seconds = speed / 1000;
+    el.style.transition = "opacity " + seconds + "s ease";
+    el.style.opacity = 0;
+    setTimeout(() => {
+      el.parentNode.removeChild(el);
+    }, speed);
+  },
 };
 
 const admin = {
