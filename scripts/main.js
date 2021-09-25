@@ -58,14 +58,13 @@ const handleMoveClick = (evt) => {
 };
 
 const playerAttacks = (sender, receiver, move) => {
-  reduceHP(sender, receiver, move);
+  game.reduceHP(sender, receiver, move);
   playerGameCommentary(sender, receiver, move);
 };
 
 const opponentAttacks = (sender, receiver) => {
   let opponentMove = setup.selectRandomMove(sender);
-  console.log(`${sender} used ${opponentMove}`);
-  reduceHP(sender, receiver, opponentMove);
+  game.reduceHP(sender, receiver, opponentMove);
   opponentGameCommentary(sender, receiver, opponentMove);
 };
 
@@ -94,6 +93,7 @@ const playerGameCommentary = async (sender, receiver, move) => {
   }
 };
 
+
 const opponentGameCommentary = async (sender, receiver, move) => {
   let [action, effect] = render.narrateGame(sender, receiver, move);
   commentaryBar.innerHTML = action;
@@ -114,23 +114,5 @@ const opponentGameCommentary = async (sender, receiver, move) => {
     playerArr.splice(index, 1);
     console.log(`${playerArr} are left in player's array`);
     pokemonDetailsObject[receiver].isAlive = false;
-  }
-};
-
-const reduceHP = (sender, receiver, move) => {
-  let targetHP = stats.getPokemonHP(receiver);
-  const damageHP = stats.getMoveHP(sender, move);
-  const healthStatus = document.getElementsByClassName(
-    `health-bar ${receiver}`
-  );
-  pokemonDetailsObject[receiver].hp = targetHP - damageHP;
-  if (pokemonDetailsObject[receiver].hp < 0) {
-    healthStatus[0].style.width = "100%";
-    healthStatus[0].style.backgroundColor = "red";
-    commentaryBar.innerHTML = `${receiver} is dead`;
-  } else {
-    const remainingHP = ((targetHP - damageHP) / targetHP) * 100;
-    const stringHP = remainingHP.toString() + `%`;
-    healthStatus[0].style.width = stringHP;
   }
 };

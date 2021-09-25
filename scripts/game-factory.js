@@ -1,5 +1,23 @@
 // functions relating to actual gameplay
-const game = {};
+const game = {
+  reduceHP: (sender, receiver, move) => {
+    let targetHP = stats.getPokemonHP(receiver);
+    const damageHP = stats.getMoveHP(sender, move);
+    const healthStatus = document.getElementsByClassName(
+      `health-bar ${receiver}`
+    );
+    pokemonDetailsObject[receiver].hp = targetHP - damageHP;
+    if (pokemonDetailsObject[receiver].hp < 0) {
+      healthStatus[0].style.width = "100%";
+      healthStatus[0].style.backgroundColor = "red";
+      commentaryBar.innerHTML = `${receiver} is dead`;
+    } else {
+      const remainingHP = ((targetHP - damageHP) / targetHP) * 100;
+      const stringHP = remainingHP.toString() + `%`;
+      healthStatus[0].style.width = stringHP;
+    }
+  },
+};
 
 // functions for setting up the game
 const setup = {
