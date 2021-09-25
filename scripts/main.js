@@ -86,6 +86,8 @@ const playerGameCommentary = async (sender, receiver, move) => {
     }, 2000);
   });
   await timeout;
+  // if opponent is still alive, opponent attacks. 
+  // if opponent is dead, remove opponent from opponentArr
   if (stats.checkIfAlive(receiver)) {
     setTimeout(() => {
       opponentAttacks(currentPlayer, currentOpponent);
@@ -109,6 +111,8 @@ const opponentGameCommentary = async (sender, receiver, move) => {
     }, 2000);
   });
   await timeout;
+  // if player is alive, prompt for next move 
+  // if player is dead, remove from playerArr 
   if (stats.checkIfAlive(receiver)) {
     setTimeout(() => {
       commentaryBar.innerHTML = "Please select your next move: ";
@@ -116,7 +120,7 @@ const opponentGameCommentary = async (sender, receiver, move) => {
   } else {
     const index = opponentArr[receiver];
     opponentArr.splice(index, 1);
-    console.log(opponentArr);
+    console.log(playerArr);
     pokemonDetailsObject[receiver].isAlive = false;
     console.log(pokemonDetailsObject[receiver].isAlive);
   }
