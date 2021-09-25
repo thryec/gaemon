@@ -35,9 +35,9 @@ const showPlayerSelection = () => {
 
 title.innerHTML = `Round ${roundCount}`;
 
-window.addEventListener('load', () => {
-  startRound()
-})
+// window.addEventListener("load", () => {
+//   startRound();
+// });
 
 const startRound = () => {
   setup.generateMoves(currentPlayer);
@@ -101,9 +101,6 @@ const playerGameCommentary = async (sender, receiver, move) => {
     opponentArr.splice(index, 1);
     console.log(`${opponentArr} are left in opponent's array`);
     pokemonDetailsObject[receiver].isAlive = false;
-    setTimeout(() => {
-      returnPlayersSelection();
-    }, 3000);
   }
 };
 
@@ -112,11 +109,13 @@ const returnPlayersSelection = () => {
   battlePage.style.display = "none";
   playersTeamPage.style.display = "block";
   showPlayerSelection();
-  const healthStatus = document.getElementsByClassName(
-    `health-bar ${currentPlayer}`
-  );
-  healthStatus[0].style.width = currentPlayerHealth
-  console.log(`${currentPlayer}'s health is ${healthStatus[0].style.width}`);
+  if (stats.checkIfAlive(currentPlayer)) {
+    const healthStatus = document.getElementsByClassName(
+      `health-bar ${currentPlayer}`
+    );
+    healthStatus[0].style.width = currentPlayerHealth;
+    console.log(`${currentPlayer}'s health is ${healthStatus[0].style.width}`);
+  }
   test.announceCurrentPokemon();
 };
 
@@ -147,5 +146,8 @@ const opponentGameCommentary = async (sender, receiver, move) => {
     playerArr.splice(index, 1);
     console.log(`${playerArr} are left in player's array`);
     pokemonDetailsObject[receiver].isAlive = false;
+    setTimeout(() => {
+      returnPlayersSelection();
+    }, 3000);
   }
 };

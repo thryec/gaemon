@@ -1,5 +1,4 @@
 // functions relating to actual gameplay
-let currentPlayerHealth = ''
 const game = {
   reduceHP: (sender, receiver, move) => {
     let targetHP = stats.getPokemonHP(receiver);
@@ -7,6 +6,7 @@ const game = {
     const healthStatus = document.getElementsByClassName(
       `health-bar ${receiver}`
     );
+    console.log(healthStatus[0])
     pokemonDetailsObject[receiver].hp = targetHP - damageHP;
     if (pokemonDetailsObject[receiver].hp < 0) {
       healthStatus[0].style.width = "100%";
