@@ -51,8 +51,9 @@ const render = {
     outerDiv.append(innerDiv);
     return outerDiv;
   },
-  addHealthBar: (parentDiv) => {
+  addHealthBar: (pokemon, parentDiv) => {
     const bar = render.createHealthBar();
+    bar.classList.add(pokemon)
     parentDiv.appendChild(bar);
   },
   narrateGame: (sender, receiver, move) => {

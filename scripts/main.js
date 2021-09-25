@@ -23,7 +23,7 @@ const showPlayerSelection = () => {
         img.classList.add("character-stats");
         img.setAttribute("value", key);
         displayWithStats.appendChild(img);
-        render.addHealthBar(displayWithStats);
+        render.addHealthBar(selected, displayWithStats);
       }
     }
   }
@@ -80,7 +80,6 @@ const playerGameCommentary = async (sender, receiver, move) => {
     }, 2000);
   });
   await timeout;
-  // randomly generate next opponent from opponent's array
   if (stats.checkIfAlive(receiver)) {
     setTimeout(() => {
       opponentAttacks(currentOpponent, currentPlayer);
@@ -93,27 +92,30 @@ const playerGameCommentary = async (sender, receiver, move) => {
       }, 2500);
     });
     await fadeout;
+    // randomly generate next opponent from opponent's array
     commentaryBar.innerHTML = winner;
     const index = opponentArr.indexOf(receiver);
     opponentArr.splice(index, 1);
     console.log(`${opponentArr} are left in opponent's array`);
     pokemonDetailsObject[receiver].isAlive = false;
     setTimeout(() => {
-      battleToSelection();
-    }, 2500);
+      returnPlayersSelection();
+    }, 5000);
   }
 };
 
-// if opponent dies, show selection page and render pokemon in players array
-const battleToSelection = () => {
+const returnPlayersSelection = () => {
   teamDisplay.innerHTML = "";
   battlePage.style.display = "none";
   playersTeamPage.style.display = "block";
-  console.log(pokemonDetailsObject[currentPlayer].hp)
-  for(let pokemon of playerArr) {
-    setup.renderBattlePokemon(pokemon, teamDisplay)
-  }
+  showPlayerSelection();
+  const healthStatus = document.getElementsByClassName(
+    `health-bar ${currentPlayer}`
+  );
+  console.log(`${currentPlayer}'s health is ${healthStatus[0].style.width}`);
+  healthStatus[0].style.width = "50%";
 };
+
 
 const opponentGameCommentary = async (sender, receiver, move) => {
   let [action, effect, winner] = render.narrateGame(sender, receiver, move);
@@ -125,7 +127,7 @@ const opponentGameCommentary = async (sender, receiver, move) => {
     }, 2000);
   });
   await timeout;
-  // render remaining pokemon in playerArr and prompt selection
+  // render remaining pokemon in playerArr
   if (stats.checkIfAlive(receiver)) {
     setTimeout(() => {
       commentaryBar.innerHTML = "Please select your next move: ";
@@ -145,4 +147,3 @@ const opponentGameCommentary = async (sender, receiver, move) => {
     pokemonDetailsObject[receiver].isAlive = false;
   }
 };
-
