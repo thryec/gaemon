@@ -27,22 +27,22 @@ const starterPokemonArr = [
   {
     name: "charmander",
     image: "../img/charmander.png",
-    moves: { Firepunch: 25, Scratch: 7, Bodyslam: 8, Megakick: 5 },
+    moves: { Firepunch: 12, Scratch: 7, Bodyslam: 8, Megakick: 5 },
   },
   {
     name: "mudkip",
     image: "../img/mudkip.png",
-    moves: { Icebeam: 10, Headbutt: 12, Hydropump: 8, Stomp: 5 },
+    moves: { Icebeam: 12, Headbutt: 10, Hydropump: 8, Stomp: 5 },
   },
   {
     name: "treecko",
     image: "../img/treecko.png",
-    moves: { Tackle: 10, RazorWind: 12, Cut: 8, Pound: 5 },
+    moves: { Tackle: 5, RazorWind: 12, Cut: 8, Pound: 5 },
   },
   {
     name: "torchic",
     image: "../img/torchic.png",
-    moves: { Flamethrower: 10, Peck: 12, Scratch: 8, Sandattack: 5 },
+    moves: { Flamethrower: 5, Peck: 12, Scratch: 9, Sandattack: 5 },
   },
 ];
 
