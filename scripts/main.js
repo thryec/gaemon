@@ -14,6 +14,7 @@ const titlePage = document.querySelector(".title-page");
 const selectionPage = document.querySelector(".selection-page");
 const playersTeamPage = document.querySelector(".players-team-page");
 const teamDisplay = document.querySelector(".display-team");
+const battlePage = document.querySelector(".battle-round-1");
 const title = document.querySelector(".title-round-1");
 const player1 = document.querySelector(".player1");
 const opponent1 = document.querySelector(".opponent1");
@@ -37,35 +38,40 @@ submitBtn.addEventListener("click", () => {
 
   titlePage.style.display = "none";
   selectionPage.style.display = "block";
+  populatePlayersArray();
+  activateConfirmButton()
 });
 
 //-------------- Page 2 --------------//
 // Adds selected pokemons into players array
 
-avatars.forEach((element) => {
-  element.addEventListener("click", () => {
-    if (!arrIsFull(playerArr)) {
-      const selectedPokemon = element.getAttribute("value");
-      playerArr.push(selectedPokemon);
-      element.style.pointerEvents = "none";
-      element.style.opacity = "0.5";
-    }
-    if (arrIsFull(playerArr)) {
-      confirmButton.style.pointerEvents = "auto";
-    }
+const populatePlayersArray = () => {
+  avatars.forEach((element) => {
+    element.addEventListener("click", () => {
+      if (!arrIsFull(playerArr)) {
+        const selectedPokemon = element.getAttribute("value");
+        playerArr.push(selectedPokemon);
+        element.style.pointerEvents = "none";
+        element.style.opacity = "0.5";
+      }
+      if (arrIsFull(playerArr)) {
+        confirmButton.style.pointerEvents = "auto";
+      }
+    });
   });
-});
+};
 
-confirmButton.addEventListener("click", () => {
-  addRemainingToOpponent();
-  showPlayerSelection();
-  selectionPage.style.display = "none";
-  playersTeamPage.style.display = "block";
-});
+const activateConfirmButton = () => {
+  confirmButton.addEventListener("click", () => {
+    addRemainingToOpponent();
+    showPlayerSelection();
+    selectionPage.style.display = "none";
+    playersTeamPage.style.display = "block";
+  });
+};
 
 //-------------- Page 2.2 --------------//
 // Generate more info modal (low priority)
-
 
 //-------------- Page 3 --------------//
 
@@ -96,7 +102,7 @@ const selectActiveCharacter = () => {
   for (let option of playersCharacters) {
     option.addEventListener("click", (evt) => {
       currentPlayer = evt.target.getAttribute("value");
-      console.log(`Player has selected ${currentPlayer}`);
+      announceCurrentPokemon();
       activatePlayButton();
     });
   }
@@ -105,21 +111,21 @@ const selectActiveCharacter = () => {
 const activatePlayButton = () => {
   playButton.style.pointerEvents = "auto";
   playButton.addEventListener("click", () => {
-    roundCount++;
-    console.log("play button clicked");
-    playersTeamPage.style.display = "none"
-    battlePage.style.display = "block"
+    playersTeamPage.style.display = "none";
+    battlePage.style.display = "block";
   });
-  announceCurrentPokemon(); 
+  startRound();
+};
+
+//-------------- Page 4 --------------//
+
+// while player and opponent are alive, run game round
+const startRound = () => {
   generateMoves(currentPlayer);
   renderBattlePokemon(currentPlayer, player1);
   renderBattlePokemon(currentOpponent, opponent1);
   selectPlayerMove();
 };
-
-const battlePage = document.querySelector('.battle-round-1')
-
-//-------------- Page 4 --------------//
 
 title.innerHTML = `Round ${roundCount}`;
 
@@ -137,7 +143,7 @@ const generateMoves = (breed) => {
 };
 
 const renderBattlePokemon = (pokemon, parentNode) => {
-  const img = createImgWithName(pokemon);
+  const img = render.createImgWithName(pokemon);
   parentNode.appendChild(img);
   const healthBar = createHealthBar();
   healthBarColor = healthBar.firstChild;
@@ -174,14 +180,6 @@ const opponentAttacks = (player, opponent) => {
   opponentGameCommentary(opponent, player, opponentMove);
 };
 
-// while player and opponent are alive, run game round
-const startRound = (player, opponent) => {
-  commentaryBar.innerHTML = "Please select a move for your Pokemon: ";
-  if (checkIfAlive(player) && checkIfAlive(opponent)) {
-    // selectPlayerMove();
-  }
-};
-
 // check HP, annouce dead if dead
 const checkIfAlive = (pokemon) => {
   if (pokemonDetailsObject[pokemon].hp <= 0) {
@@ -207,13 +205,13 @@ const playerGameCommentary = async (sender, receiver, move) => {
   if (checkIfAlive(receiver)) {
     setTimeout(() => {
       opponentAttacks(currentPlayer, currentOpponent);
-    }, 4000);
+    }, 2000);
   } else {
-    const index = opponentArr[receiver]
-    opponentArr.splice(index, 1)
-    console.log(opponentArr)
-    pokemonDetailsObject[receiver].isAlive = false 
-    console.log(pokemonDetailsObject[receiver].isAlive)
+    const index = opponentArr[receiver];
+    opponentArr.splice(index, 1);
+    console.log(opponentArr);
+    pokemonDetailsObject[receiver].isAlive = false;
+    console.log(pokemonDetailsObject[receiver].isAlive);
   }
 };
 
@@ -230,7 +228,13 @@ const opponentGameCommentary = async (sender, receiver, move) => {
   if (checkIfAlive(receiver)) {
     setTimeout(() => {
       commentaryBar.innerHTML = "Please select your next move: ";
-    }, 3000);
+    }, 2000);
+  } else {
+    const index = opponentArr[receiver];
+    opponentArr.splice(index, 1);
+    console.log(opponentArr);
+    pokemonDetailsObject[receiver].isAlive = false;
+    console.log(pokemonDetailsObject[receiver].isAlive);
   }
 };
 
@@ -238,22 +242,14 @@ const reduceHP = (receiver, damageHP) => {
   const healthStatus = document.getElementsByClassName(
     `health-bar ${receiver}`
   );
-  let targetHP = getPokemonHP(receiver);
-
-  pokemonDetailsObject[receiver].hp = targetHP - damageHP;
-  const remainingHP = ((targetHP - damageHP) / targetHP) * 100;
-  const stringHP = remainingHP.toString() + `%`;
-  healthStatus[0].style.width = stringHP;
-
   if (pokemonDetailsObject[receiver].hp < 0) {
     healthStatus[0].style.width = "100%";
     healthStatus[0].style.backgroundColor = "red";
     commentaryBar.innerHTML = `${receiver} is dead`;
   }
+  let targetHP = getPokemonHP(receiver);
+  pokemonDetailsObject[receiver].hp = targetHP - damageHP;
+  const remainingHP = ((targetHP - damageHP) / targetHP) * 100;
+  const stringHP = remainingHP.toString() + `%`;
+  healthStatus[0].style.width = stringHP;
 };
-
-//-------------- Window Event Listener --------------//
-
-window.addEventListener("load", () => {
-  // startRound(currentPlayer, currentOpponent);
-});

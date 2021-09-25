@@ -1,9 +1,3 @@
-const getGlobalVariables = () => {
-  console.log(
-    `Player Name: ${playerName}, Player Array: ${playerArr}, Opponent's Array: ${opponentArr}, Player's Current Pokemon: ${currentPlayer}, Opponent's Current Player: ${currentOpponent}, Round Count: ${roundCount} `
-  );
-};
-
 const arrIsFull = (array) => {
   return array.length < 3 ? false : true;
 };
@@ -20,13 +14,13 @@ const createImgWithURL = (urlPath) => {
   return img;
 };
 
-const createImgWithName = (breed) => {
-  for (let element of allPokemonDetails) {
-    if (breed === element.name) {
-      return createImgWithURL(element.img);
-    }
-  }
-};
+// const createImgWithName = (breed) => {
+//   for (let element of allPokemonDetails) {
+//     if (breed === element.name) {
+//       return createImgWithURL(element.img);
+//     }
+//   }
+// };
 
 const addHealthBar = (parentDiv) => {
   const bar = createHealthBar();

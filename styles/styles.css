@@ -38,8 +38,7 @@ body {
 }
 
 .submit-pg1 {
-  display: block;
-  margin: 5 auto;
+  margin: 10% auto;
 }
 
 /* Page 2 - Pokemon Selection */
@@ -67,10 +66,6 @@ body {
 .pokemon-img {
   display: block;
   margin: 5%;
-}
-
-.pokemon-info {
-  /* background-color: red; */
 }
 
 button.confirm-team-btn {
@@ -157,7 +152,8 @@ table {
   display: block;
   margin: 0 auto;
   padding: 5%;
-  width: 280px
+  max-height: 280px;
+  max-width: 280px;
 }
 
 .battle-character .health-bar-container {
