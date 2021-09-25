@@ -1,0 +1,29 @@
+/* Page 3 - My Team */
+
+.players-team-page {
+  text-align: center;
+  display: none;
+}
+
+.players-team-page h1 {
+  padding: 6%;
+}
+
+.stats-box {
+  display: inline-block;
+  text-align: center;
+  padding: 3%;
+}
+
+.character-stats {
+  margin: 5%;
+}
+
+.play-button {
+  border: none;
+  width: 200px;
+  height: 50px;
+  font-size: 20px;
+  pointer-events: none;
+  margin-top: 20%;
+}

@@ -1,0 +1,47 @@
+/* Page 2 - Pokemon Selection */
+
+.selection-page {
+    text-align: center;
+    display: none;
+  }
+  
+  .selection-page h1 {
+    padding: 2% 5%;
+  }
+  
+  .team-members {
+    margin: auto;
+    width: 60%;
+    height: 50%;
+  }
+  
+  .pokemon-box {
+    display: inline-block;
+    padding: 1% 4%;
+  }
+  
+  .pokemon-img {
+    display: block;
+    margin: 5%;
+  }
+  
+  button.confirm-team-btn {
+    /* position: fixed;  */
+    color: white;
+    margin-top: 15%;
+    border: none;
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+    pointer-events: none;
+  }
+  
+  /* Page 2.2 - Pop-Up Modal for Pokemon Info */
+  
+  .pokemon-info-modals {
+    display: none;
+  }
+  
+  table {
+    border: 1px solid black;
+  }

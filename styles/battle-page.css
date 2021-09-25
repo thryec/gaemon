@@ -1,0 +1,82 @@
+/* Page 4 - Battle Page */
+
+.battle-round-1 {
+  text-align: center;
+  display: none;
+}
+
+.title-round-1 {
+  padding-top: 5%;
+}
+
+.battle-container {
+  margin: auto;
+  background-color: rgba(200, 200, 200, 0.4);
+  backdrop-filter: blur(10px);
+  margin-top: 10%;
+  padding: 5%;
+}
+
+.battle-character {
+  display: inline-block;
+  width: 40%;
+  margin: 0 4%;
+}
+
+.battle-character h3 {
+  font-size: 30px;
+  color: rgb(30, 30, 30);
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.battle-character img {
+  display: block;
+  margin: 0 auto;
+  padding: 5%;
+  height: 280px;
+  max-width: 280px;
+}
+
+.battle-character .health-bar-container {
+  display: block;
+  margin: 0 auto;
+}
+
+.bg-box {
+  background-color: rgb(230, 227, 227);
+  border: 2px solid black;
+  border-radius: 20px;
+  color: rgb(30, 30, 30);
+}
+
+.player-moves {
+  position: absolute;
+  width: 90%;
+  left: 35px;
+  top: 800px;
+}
+
+.attack-options {
+  background-color: aqua;
+  border: none;
+  border-radius: 10px;
+  font-size: 25px;
+  margin: 2%;
+  padding: 2%;
+  cursor: pointer;
+}
+
+.game-commentary {
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  position: absolute;
+  left: 35px;
+  top: 730px;
+  width: 90%;
+}
+
+.remove-character {
+  display: none;
+}
