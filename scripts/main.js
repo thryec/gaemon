@@ -35,6 +35,10 @@ const showPlayerSelection = () => {
 
 title.innerHTML = `Round ${roundCount}`;
 
+window.addEventListener('load', () => {
+  startRound()
+})
+
 const startRound = () => {
   setup.generateMoves(currentPlayer);
   setup.renderBattlePokemon(currentPlayer, player1);
@@ -92,7 +96,6 @@ const playerGameCommentary = async (sender, receiver, move) => {
       }, 2500);
     });
     await fadeout;
-    // randomly generate next opponent from opponent's array
     commentaryBar.innerHTML = winner;
     const index = opponentArr.indexOf(receiver);
     opponentArr.splice(index, 1);
@@ -100,7 +103,7 @@ const playerGameCommentary = async (sender, receiver, move) => {
     pokemonDetailsObject[receiver].isAlive = false;
     setTimeout(() => {
       returnPlayersSelection();
-    }, 5000);
+    }, 3000);
   }
 };
 
@@ -112,10 +115,10 @@ const returnPlayersSelection = () => {
   const healthStatus = document.getElementsByClassName(
     `health-bar ${currentPlayer}`
   );
+  healthStatus[0].style.width = currentPlayerHealth
   console.log(`${currentPlayer}'s health is ${healthStatus[0].style.width}`);
-  healthStatus[0].style.width = "50%";
+  test.announceCurrentPokemon();
 };
-
 
 const opponentGameCommentary = async (sender, receiver, move) => {
   let [action, effect, winner] = render.narrateGame(sender, receiver, move);
@@ -127,7 +130,6 @@ const opponentGameCommentary = async (sender, receiver, move) => {
     }, 2000);
   });
   await timeout;
-  // render remaining pokemon in playerArr
   if (stats.checkIfAlive(receiver)) {
     setTimeout(() => {
       commentaryBar.innerHTML = "Please select your next move: ";

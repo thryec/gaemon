@@ -1,10 +1,10 @@
 //-------------- Global Variables --------------//
 
 let playerName = "";
-let playerArr = [];
-let opponentArr = [];
-let currentPlayer = "";
-let currentOpponent = "";
+let playerArr = ['squirtle', 'charmander', 'bulbasaur'];
+let opponentArr = ['torchic', 'mudkip','treecko'];
+let currentPlayer = "squirtle";
+let currentOpponent = "torchic";
 let roundCount = 0;
 let playersTurn = true;
 

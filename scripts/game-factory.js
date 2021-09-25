@@ -1,4 +1,5 @@
 // functions relating to actual gameplay
+let currentPlayerHealth = ''
 const game = {
   reduceHP: (sender, receiver, move) => {
     let targetHP = stats.getPokemonHP(receiver);
@@ -13,8 +14,8 @@ const game = {
       commentaryBar.innerHTML = `${receiver} is dead`;
     } else {
       const remainingHP = ((targetHP - damageHP) / targetHP) * 100;
-      const stringHP = remainingHP.toString() + `%`;
-      healthStatus[0].style.width = stringHP;
+      currentPlayerHealth = remainingHP.toString() + `%`;
+      healthStatus[0].style.width = currentPlayerHealth;
     }
   },
 };
@@ -66,11 +67,7 @@ const setup = {
   renderBattlePokemon: (pokemon, parentNode) => {
     const img = render.createImgWithName(pokemon);
     parentNode.appendChild(img);
-    const healthBar = render.createHealthBar();
-    healthBar.firstChild.classList.add(pokemon);
+    const healthBar = render.createHealthBar(pokemon);
     parentNode.appendChild(healthBar);
   },
 };
-
-// 2. handle dead pokemon
-// 3. add type factor

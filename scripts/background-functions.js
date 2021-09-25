@@ -23,6 +23,13 @@ const stats = {
       return true;
     }
   },
+  getOriginalHP: (pokemon) => {
+    for (let element of allPokemonDetails) {
+      if (element.name === pokemon) {
+        return element.hp;
+      }
+    }
+  },
 };
 
 const render = {
@@ -43,30 +50,30 @@ const render = {
     img.src = urlPath;
     return img;
   },
-  createHealthBar: () => {
+  createHealthBar: (pokemon) => {
     const outerDiv = document.createElement("div");
     const innerDiv = document.createElement("div");
     outerDiv.classList.add("health-bar-container");
     innerDiv.classList.add("health-bar");
+    innerDiv.classList.add(pokemon);
     outerDiv.append(innerDiv);
     return outerDiv;
   },
   addHealthBar: (pokemon, parentDiv) => {
-    const bar = render.createHealthBar();
-    bar.classList.add(pokemon)
+    const bar = render.createHealthBar(pokemon);
     parentDiv.appendChild(bar);
   },
   narrateGame: (sender, receiver, move) => {
     let action = "";
     let effect = "";
-    let winner = ""
+    let winner = "";
     if (pokemonDetailsObject[receiver].hp > 0) {
       action = `${sender} used ${move}....`;
       effect = `${receiver}'s HP is now ${pokemonDetailsObject[receiver].hp}`;
     } else {
       action = `${sender} used ${move}....`;
       effect = `${receiver} is dead`;
-      winner = `${sender} has won`
+      winner = `${sender} has won`;
     }
     return [action, effect, winner];
   },
