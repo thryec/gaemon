@@ -14,7 +14,7 @@ const buttons = {
     playButton.addEventListener("click", () => {
       playersTeamPage.style.display = "none";
       battlePage.style.display = "block";
-      teamDisplay.innerHTML = ""
+      teamDisplay.innerHTML = "";
       startRound();
     });
   },
@@ -28,16 +28,12 @@ const buttons = {
   },
   selectActiveCharacter: () => {
     const playersCharacters = document.querySelectorAll(".character-stats");
-    console.log(playersCharacters)
-    // for (let option of playersCharacters) {
-    //   option.removeEventListener('click')
-    // }
     for (let option of playersCharacters) {
+      console.log(option);
       option.addEventListener("click", (evt) => {
-        option.style.pointerEvents = "auto"
+        option.style.pointerEvents = "auto";
         currentPlayer = evt.target.getAttribute("value");
-        console.log(currentPlayer)
-        buttons.activatePlayButton();
+        test.announceCurrentPokemon();
       });
     }
   },

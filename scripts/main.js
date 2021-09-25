@@ -1,3 +1,5 @@
+const delay = 250
+
 //-------------- Page 1 --------------//
 
 submitBtn.addEventListener("click", () => {
@@ -29,20 +31,19 @@ const showPlayerSelection = () => {
   }
   setup.selectRandomOpponent();
   buttons.selectActiveCharacter();
+  buttons.activatePlayButton()
 };
 
 //-------------- Page 4 --------------//
 
 title.innerHTML = `Round ${roundCount}`;
 
-// window.addEventListener("load", () => {
-//   startRound();
-// });
-
 const startRound = () => {
-  test.announceCurrentPokemon()
+  console.log('start round called')
   setup.generateMoves(currentPlayer);
   setup.renderBattlePokemon(currentPlayer, player1);
+  test.announceCurrentPokemon()
+  console.log(`rendering opponent pokemon`)
   setup.renderBattlePokemon(currentOpponent, opponent1);
   selectPlayerMove();
 };
@@ -81,19 +82,19 @@ const playerGameCommentary = async (sender, receiver, move) => {
     setTimeout(() => {
       commentaryBar.innerHTML = effect;
       resolve();
-    }, 2000);
+    }, delay);
   });
   await timeout;
   if (stats.checkIfAlive(receiver)) {
     setTimeout(() => {
       opponentAttacks(currentOpponent, currentPlayer);
-    }, 2000);
+    }, delay);
   } else {
     const fadeout = new Promise((resolve) => {
       setTimeout(() => {
-        render.removeFadeOut(opponent1, 3000);
+        render.removeFadeOut(opponent1, delay);
         resolve();
-      }, 2500);
+      }, delay);
     });
     await fadeout;
     commentaryBar.innerHTML = winner;
@@ -103,7 +104,7 @@ const playerGameCommentary = async (sender, receiver, move) => {
     pokemonDetailsObject[receiver].isAlive = false;
     setTimeout(() => {
       returnPlayersSelection();
-    }, 3000);
+    }, delay);
   }
 };
 
@@ -114,19 +115,19 @@ const opponentGameCommentary = async (sender, receiver, move) => {
     setTimeout(() => {
       commentaryBar.innerHTML = effect;
       resolve();
-    }, 2000);
+    }, delay);
   });
   await timeout;
   if (stats.checkIfAlive(receiver)) {
     setTimeout(() => {
       commentaryBar.innerHTML = "Please select your next move: ";
-    }, 2000);
+    }, delay);
   } else {
     const fadeout = new Promise((resolve) => {
       setTimeout(() => {
-        render.removeFadeOut(player1, 3000);
+        render.removeFadeOut(player1, delay);
         resolve();
-      }, 2500);
+      }, delay);
     });
     await fadeout;
     commentaryBar.innerHTML = winner;
@@ -136,14 +137,14 @@ const opponentGameCommentary = async (sender, receiver, move) => {
     pokemonDetailsObject[receiver].isAlive = false;
     setTimeout(() => {
       returnPlayersSelection();
-    }, 2000);
+    }, delay);
   }
 };
 
 const returnPlayersSelection = () => {
   setup.clearBattleArena(); 
-  setup.selectRandomOpponent();
-  test.announceCurrentPokemon(); 
+  // setup.selectRandomOpponent();
+  // test.announceCurrentPokemon(); 
   battlePage.style.display = "none";
   playersTeamPage.style.display = "block";
   for (let pokemon of playerArr) {
@@ -153,15 +154,7 @@ const returnPlayersSelection = () => {
     teamDisplay.appendChild(div)
   }
   if (stats.checkIfAlive(currentPlayer)) {
-    reflectPokemonHealth(currentPlayer)
+    stats.reflectPokemonHealth(currentPlayer)
   }
   buttons.selectActiveCharacter();
-
 };
-
-const reflectPokemonHealth = (pokemon) => {
-  const healthStatus = document.getElementsByClassName(
-    `health-bar ${pokemon}`
-  );
-  healthStatus[0].style.width = currentPlayerHealth;
-}

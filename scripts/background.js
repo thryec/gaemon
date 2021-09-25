@@ -88,6 +88,12 @@ const stats = {
       }
     }
   },
+  reflectPokemonHealth: (pokemon) => {
+    const healthStatus = document.getElementsByClassName(
+      `health-bar ${pokemon}`
+    );
+    healthStatus[0].style.width = currentPlayerHealth;
+  },
 };
 
 const admin = {
