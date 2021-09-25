@@ -126,10 +126,15 @@ table {
   display: none;
 }
 
+.title-round-1 {
+    padding-top: 5%;
+}
+
 .battle-container {
   margin: auto;
   background-color: rgba(200, 200, 200, 0.4);
   backdrop-filter: blur(10px);
+  margin-top: 10%; 
   padding: 5%;
 }
 
