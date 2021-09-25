@@ -13,15 +13,15 @@ submitBtn.addEventListener("click", () => {
 // select candidate and assign to currentPlayer
 
 const showPlayerSelection = () => {
-  for (let element of allPokemonDetails) {
+  for (let key of Object.keys(pokemonDetailsObject)) {
     for (let selected of playerArr) {
-      if (selected === element.name) {
+      if (selected === key) {
         const displayWithStats = document.createElement("div");
         displayWithStats.classList.add("stats-box");
         teamDisplay.appendChild(displayWithStats);
-        const img = render.createImgWithURL(element.img);
+        const img = render.createImgWithURL(pokemonDetailsObject[key].img);
         img.classList.add("character-stats");
-        img.setAttribute("value", element.name);
+        img.setAttribute("value", key);
         displayWithStats.appendChild(img);
         render.addHealthBar(displayWithStats);
       }
@@ -86,32 +86,31 @@ const playerGameCommentary = async (sender, receiver, move) => {
       opponentAttacks(currentOpponent, currentPlayer);
     }, 2000);
   } else {
-    const fadeout = new Promise(resolve => {
+    const fadeout = new Promise((resolve) => {
       setTimeout(() => {
         render.removeFadeOut(opponent1, 3000);
-        resolve()
+        resolve();
       }, 2500);
-    })
-    await fadeout
-    commentaryBar.innerHTML = winner; 
+    });
+    await fadeout;
+    commentaryBar.innerHTML = winner;
     const index = opponentArr.indexOf(receiver);
     opponentArr.splice(index, 1);
     console.log(`${opponentArr} are left in opponent's array`);
     pokemonDetailsObject[receiver].isAlive = false;
     setTimeout(() => {
-      battleToSelection(); 
-    }, 1000);
+      battleToSelection();
+    }, 2500);
   }
 };
 
-// if opponent dies, show selection page and render pokemon in players array  
+// if opponent dies, show selection page and render pokemon in players array
 const battleToSelection = () => {
-  teamDisplay.innerHTML = ""
-  showPlayerSelection(); 
-  battlePage.style.display = "none"
-  playersTeamPage.style.display = "block"
-}
-
+  teamDisplay.innerHTML = "";
+  showPlayerSelection();
+  battlePage.style.display = "none";
+  playersTeamPage.style.display = "block";
+};
 
 const opponentGameCommentary = async (sender, receiver, move) => {
   let [action, effect, winner] = render.narrateGame(sender, receiver, move);
@@ -129,14 +128,14 @@ const opponentGameCommentary = async (sender, receiver, move) => {
       commentaryBar.innerHTML = "Please select your next move: ";
     }, 2000);
   } else {
-    const fadeout = new Promise(resolve => {
+    const fadeout = new Promise((resolve) => {
       setTimeout(() => {
         render.removeFadeOut(player1, 3000);
-        resolve()
+        resolve();
       }, 2500);
-    })
-    await fadeout
-    commentaryBar.innerHTML = winner; 
+    });
+    await fadeout;
+    commentaryBar.innerHTML = winner;
     const index = playerArr.indexOf(receiver);
     playerArr.splice(index, 1);
     console.log(`${playerArr} are left in player's array`);

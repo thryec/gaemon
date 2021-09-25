@@ -127,5 +127,5 @@ window.addEventListener("load", () => {
   convertToObject();
 });
 
-console.log(allPokemonDetails)
+console.log(pokemonDetailsObject)
 
