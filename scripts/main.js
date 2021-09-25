@@ -108,8 +108,12 @@ const returnPlayersSelection = () => {
   teamDisplay.innerHTML = "";
   battlePage.style.display = "none";
   playersTeamPage.style.display = "block";
-  for (let element of playerArr) {
-    setup.renderBattlePokemon(element, teamDisplay)
+  for (let pokemon of playerArr) {
+    const div = document.createElement('div')
+    div.classList.add('stats-box','character-stats')
+    div.setAttribute('value', pokemon)
+    setup.renderBattlePokemon(pokemon, div)
+    teamDisplay.appendChild(div)
   }
   setup.selectRandomOpponent();
   buttons.selectActiveCharacter();

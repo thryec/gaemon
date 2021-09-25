@@ -27,9 +27,11 @@ const buttons = {
   },
   selectActiveCharacter: () => {
     const playersCharacters = document.querySelectorAll(".character-stats");
+    // console.log(playersCharacters)
     for (let option of playersCharacters) {
       option.addEventListener("click", (evt) => {
         currentPlayer = evt.target.getAttribute("value");
+        // console.log(currentPlayer)
         test.announceCurrentPokemon();
         buttons.activatePlayButton();
       });

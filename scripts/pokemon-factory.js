@@ -32,12 +32,12 @@ const starterPokemonArr = [
   {
     name: "mudkip",
     image: "img/mudkip.png",
-    moves: { Icebeam: 12, Headbutt: 10, Hydropump: 8, Stomp: 5 },
+    moves: { Icebeam: 30, Headbutt: 30, Hydropump: 30, Stomp: 30 },
   },
   {
     name: "treecko",
     image: "img/treecko.png",
-    moves: { Tackle: 5, RazorWind: 12, Cut: 8, Pound: 5 },
+    moves: { Tackle: 30, RazorWind: 30, Cut: 30, Pound: 30 },
   },
   {
     name: "torchic",
