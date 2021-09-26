@@ -1,13 +1,15 @@
-const delay = 250
-
+const delay = 250;
 
 const startRound = () => {
   setup.selectRandomOpponent();
   setup.generateMoves(currentPlayer);
   setup.renderBattlePokemon(currentPlayer, player1);
-  test.announceCurrentPokemon()
+  test.announceCurrentPokemon();
+  console.log(
+    `${currentPlayer}'s health is ${stats.getPokemonHP(currentPlayer)}`
+  );
   setup.renderBattlePokemon(currentOpponent, opponent1);
-  stats.reflectPokemonHealth(currentPlayer)
+  stats.reflectPokemonHealth(currentPlayer);
   selectPlayerMove();
 };
 
@@ -41,7 +43,7 @@ const showPlayerSelection = () => {
     }
   }
   buttons.selectActiveCharacter();
-  buttons.activatePlayButton()
+  buttons.activatePlayButton();
 };
 
 //-------------- Page 4 --------------//
@@ -140,19 +142,37 @@ const opponentGameCommentary = async (sender, receiver, move) => {
 };
 
 const returnPlayersSelection = () => {
-  // if playerArr is empty, announce player loss 
-  // if opponentArr is empty, announce opponent loss
-  setup.clearBattleArena(); 
+  if (playerArr.length === 0) {
+    console.log("player loses");
+    handlePlayerLoss();
+  } else if (opponentArr.length === 0) {
+    console.log("player wins");
+    handlePlayerWin();
+  } else {
+    setup.clearBattleArena();
+    battlePage.style.display = "none";
+    playersTeamPage.style.display = "block";
+    for (let pokemon of playerArr) {
+      const div = document.createElement("div");
+      div.classList.add("stats-box");
+      setup.renderBattlePokemon(pokemon, div);
+      teamDisplay.appendChild(div);
+    }
+    if (stats.checkIfAlive(currentPlayer)) {
+      stats.reflectPokemonHealth(currentPlayer);
+    }
+    buttons.selectActiveCharacter();
+  }
+};
+
+const handlePlayerLoss = () => {
   battlePage.style.display = "none";
-  playersTeamPage.style.display = "block";
-  for (let pokemon of playerArr) {
-    const div = document.createElement('div')
-    div.classList.add('stats-box')
-    setup.renderBattlePokemon(pokemon, div)
-    teamDisplay.appendChild(div)
-  }
-  if (stats.checkIfAlive(currentPlayer)) {
-    stats.reflectPokemonHealth(currentPlayer)
-  }
-  buttons.selectActiveCharacter();
+  resultsPage.style.display = "block";
+  result.innerHTML = "Sorry you lost :(";
+};
+
+const handlePlayerWin = () => {
+  battlePage.style.display = "none";
+  resultsPage.style.display = "block";
+  result.innerHTML = "Yay!";
 };

@@ -1,3 +1,12 @@
 .results-page {
+    text-align: center;
     display: none;
+}
+
+.results-page h1 {
+    padding-top: 40%;
+}
+
+.play-again {
+    margin-top: 40%;
 }

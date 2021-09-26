@@ -19,6 +19,8 @@ const title = document.querySelector(".title-round-1");
 const player1 = document.querySelector(".player1");
 const opponent1 = document.querySelector(".opponent1");
 const commentaryBar = document.querySelector(".game-commentary");
+const resultsPage = document.querySelector('.results-page')
+const result = document.querySelector('.show-result')
 
 //-------------- Button/Image Elements --------------//
 
@@ -28,3 +30,4 @@ const avatars = document.querySelectorAll(".pokemon-img");
 const playButton = document.querySelector(".play-button");
 const playerOptions = document.querySelector(".player-moves");
 const battleCharacter = document.querySelector(".battle-character")
+const restartButton = document.querySelector('.play-again')
