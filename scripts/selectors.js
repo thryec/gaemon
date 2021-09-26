@@ -5,7 +5,6 @@ let playerArr = [];
 let opponentArr = [];
 let currentPlayer = "";
 let currentOpponent = "";
-let roundCount = 1;
 let currentPlayerHealth = ''
 
 //-------------- Page/Container Elements --------------//

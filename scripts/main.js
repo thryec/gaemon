@@ -1,4 +1,4 @@
-const delay = 250
+const delay = 1000
 
 
 const startRound = () => {
@@ -7,6 +7,7 @@ const startRound = () => {
   setup.renderBattlePokemon(currentPlayer, player1);
   test.announceCurrentPokemon()
   setup.renderBattlePokemon(currentOpponent, opponent1);
+  stats.reflectPokemonHealth(currentPlayer)
   selectPlayerMove();
 };
 
@@ -44,8 +45,6 @@ const showPlayerSelection = () => {
 };
 
 //-------------- Page 4 --------------//
-
-title.innerHTML = `Round ${roundCount}`;
 
 const selectPlayerMove = () => {
   const attackOptions = document.querySelectorAll(".attack-options");
