@@ -1,4 +1,4 @@
-const delay = 1000
+const delay = 250
 
 
 const startRound = () => {
@@ -140,6 +140,8 @@ const opponentGameCommentary = async (sender, receiver, move) => {
 };
 
 const returnPlayersSelection = () => {
+  // if playerArr is empty, announce player loss 
+  // if opponentArr is empty, announce opponent loss
   setup.clearBattleArena(); 
   battlePage.style.display = "none";
   playersTeamPage.style.display = "block";
