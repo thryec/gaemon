@@ -39,12 +39,13 @@ const showPlayerSelection = () => {
 title.innerHTML = `Round ${roundCount}`;
 
 const startRound = () => {
-  console.log('start round called')
   setup.generateMoves(currentPlayer);
   setup.renderBattlePokemon(currentPlayer, player1);
   test.announceCurrentPokemon()
   console.log(`rendering opponent pokemon`)
   setup.renderBattlePokemon(currentOpponent, opponent1);
+  console.log(opponent1)
+  console.log(`finished rendering opponent`)
   selectPlayerMove();
 };
 
@@ -143,8 +144,7 @@ const opponentGameCommentary = async (sender, receiver, move) => {
 
 const returnPlayersSelection = () => {
   setup.clearBattleArena(); 
-  // setup.selectRandomOpponent();
-  // test.announceCurrentPokemon(); 
+  setup.selectRandomOpponent();
   battlePage.style.display = "none";
   playersTeamPage.style.display = "block";
   for (let pokemon of playerArr) {

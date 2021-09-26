@@ -15,6 +15,7 @@ const selectionPage = document.querySelector(".selection-page");
 const playersTeamPage = document.querySelector(".players-team-page");
 const teamDisplay = document.querySelector(".display-team");
 const battlePage = document.querySelector(".battle-round-1");
+const battleContainer = document.querySelector(".battle-container")
 const title = document.querySelector(".title-round-1");
 const player1 = document.querySelector(".player1");
 const opponent1 = document.querySelector(".opponent1");

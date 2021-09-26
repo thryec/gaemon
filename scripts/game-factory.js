@@ -68,12 +68,18 @@ const setup = {
     title.innerHTML = `Round ${roundCount}`;
     commentaryBar.innerHTML = "[Game Commentary]"
     playerOptions.innerHTML = ""
-    battleCharacter.innerHTML = ""
+    player1.innerHTML = ""
+    opponent1.innerHTML = ""
   },
   renderBattlePokemon: (pokemon, parentNode) => {
+    parentNode.style.transition = ""
+    parentNode.style.opacity = "100%"
+    console.log(`rendering ${pokemon}`)
     const img = render.createImgWithName(pokemon);
     parentNode.appendChild(img);
     const healthBar = render.createHealthBar(pokemon);
     parentNode.appendChild(healthBar);
+    console.log(parentNode)
+    battleContainer.appendChild(parentNode)
   },
 };

@@ -29,7 +29,6 @@ const buttons = {
   selectActiveCharacter: () => {
     const playersCharacters = document.querySelectorAll(".character-stats");
     for (let option of playersCharacters) {
-      console.log(option);
       option.addEventListener("click", (evt) => {
         option.style.pointerEvents = "auto";
         currentPlayer = evt.target.getAttribute("value");
