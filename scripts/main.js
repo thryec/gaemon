@@ -1,5 +1,15 @@
 const delay = 250
 
+
+const startRound = () => {
+  setup.selectRandomOpponent();
+  setup.generateMoves(currentPlayer);
+  setup.renderBattlePokemon(currentPlayer, player1);
+  test.announceCurrentPokemon()
+  setup.renderBattlePokemon(currentOpponent, opponent1);
+  selectPlayerMove();
+};
+
 //-------------- Page 1 --------------//
 
 submitBtn.addEventListener("click", () => {
@@ -29,7 +39,6 @@ const showPlayerSelection = () => {
       }
     }
   }
-  setup.selectRandomOpponent();
   buttons.selectActiveCharacter();
   buttons.activatePlayButton()
 };
@@ -37,17 +46,6 @@ const showPlayerSelection = () => {
 //-------------- Page 4 --------------//
 
 title.innerHTML = `Round ${roundCount}`;
-
-const startRound = () => {
-  setup.generateMoves(currentPlayer);
-  setup.renderBattlePokemon(currentPlayer, player1);
-  test.announceCurrentPokemon()
-  console.log(`rendering opponent pokemon`)
-  setup.renderBattlePokemon(currentOpponent, opponent1);
-  console.log(opponent1)
-  console.log(`finished rendering opponent`)
-  selectPlayerMove();
-};
 
 const selectPlayerMove = () => {
   const attackOptions = document.querySelectorAll(".attack-options");
@@ -144,7 +142,6 @@ const opponentGameCommentary = async (sender, receiver, move) => {
 
 const returnPlayersSelection = () => {
   setup.clearBattleArena(); 
-  setup.selectRandomOpponent();
   battlePage.style.display = "none";
   playersTeamPage.style.display = "block";
   for (let pokemon of playerArr) {

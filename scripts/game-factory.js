@@ -79,7 +79,6 @@ const setup = {
     parentNode.appendChild(img);
     const healthBar = render.createHealthBar(pokemon);
     parentNode.appendChild(healthBar);
-    console.log(parentNode)
     battleContainer.appendChild(parentNode)
   },
 };
