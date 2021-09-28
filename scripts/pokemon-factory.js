@@ -46,6 +46,31 @@ const starterPokemonArr = [
   },
 ];
 
+const matrix = {
+  water: {
+    water: 1,
+    fire: 1.1,
+    grass: 0.9
+  },
+  fire: {
+    water: 0.9,
+    fire: 1,
+    grass: 1.1
+  },
+  grass: {
+    water: 1.1,
+    fire: 0.9,
+    grass: 1
+  },
+  getMultiplier: (senderType, receiverType) => {
+    const sender = matrix[senderType]
+    const multiplier = sender[receiverType]
+    console.log(multiplier)
+  }
+}
+
+matrix.getMultiplier('water', 'fire'); 
+
 class Pokemon {
   constructor(name, type, hp, isAlive, moves, img) {
     (this.name = name),
