@@ -65,11 +65,9 @@ const matrix = {
   getMultiplier: (senderType, receiverType) => {
     const sender = matrix[senderType]
     const multiplier = sender[receiverType]
-    console.log(multiplier)
+    return multiplier; 
   }
 }
-
-matrix.getMultiplier('water', 'fire'); 
 
 class Pokemon {
   constructor(name, type, hp, isAlive, moves, img) {
@@ -152,5 +150,5 @@ window.addEventListener("load", () => {
   convertToObject();
 });
 
-console.log(allPokemonDetails)
+console.log(pokemonDetailsObject)
 

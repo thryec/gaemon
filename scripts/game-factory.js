@@ -2,7 +2,7 @@
 const game = {
   reduceHP: (sender, receiver, move) => {
     let targetHP = stats.getPokemonHP(receiver);
-    const damageHP = stats.getMoveHP(sender, move);
+    const damageHP = stats.getMoveHP(sender, receiver, move);
     const healthStatus = document.getElementsByClassName(
       `health-bar ${receiver}`
     );

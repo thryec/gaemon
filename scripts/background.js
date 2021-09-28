@@ -65,13 +65,20 @@ const stats = {
   getPokemonDetailsWithName: (name) => {
     return allPokemonDetails.filter((pokemon) => pokemon.name === name);
   },
-  getMoveHP: (pokemon, move) => {
-    const detailsObject = stats.getPokemonDetailsWithName(pokemon);
-    const hp = detailsObject[0].moves[move];
-    return hp;
+  getMoveHP: (sender, receiver, move) => {
+    const detailsObject = stats.getPokemonDetailsWithName(sender);
+    const rawHP = detailsObject[0].moves[move];
+    const senderType = stats.getPokemonType(sender)
+    const receiverType = stats.getPokemonType(receiver)
+    const multiplier = matrix.getMultiplier(senderType, receiverType)
+    console.log(rawHP, multiplier)
+    return rawHP * multiplier;
   },
   getPokemonHP: (pokemon) => {
     return pokemonDetailsObject[pokemon].hp;
+  },
+  getPokemonType: (pokemon) => {
+    return pokemonDetailsObject[pokemon].type;
   },
   checkIfAlive: (pokemon) => {
     if (pokemonDetailsObject[pokemon].hp <= 0) {
@@ -121,3 +128,4 @@ const test = {
     }
   },
 };
+
