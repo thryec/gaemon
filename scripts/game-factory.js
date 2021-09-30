@@ -13,8 +13,8 @@ const game = {
       commentaryBar.innerHTML = `${receiver} is dead`;
     } else {
       const remainingHP = ((targetHP - damageHP) / targetHP) * 100;
-      currentPlayerHealth = remainingHP.toString() + `%`;
-      healthStatus[0].style.width = currentPlayerHealth;
+      currentHealth = remainingHP.toString() + `%`;
+      healthStatus[0].style.width = currentHealth;
     }
   },
 };
@@ -22,18 +22,22 @@ const game = {
 const setup = {
   populatePlayersArray: () => {
     avatars.forEach((element) => {
+      element.removeEventListener('click', setup.handlePokemonSelection)
       element.addEventListener("click", () => {
-        if (!admin.arrIsFull(playerArr)) {
-          const selectedPokemon = element.getAttribute("value");
-          playerArr.push(selectedPokemon);
-          element.style.pointerEvents = "none";
-          element.style.opacity = "0.5";
-        }
-        if (admin.arrIsFull(playerArr)) {
-          confirmButton.style.pointerEvents = "auto";
-        }
+        setup.handlePokemonSelection(element);
       });
     });
+  },
+  handlePokemonSelection: (element) => {
+    if (!admin.arrIsFull(playerArr)) {
+      const selectedPokemon = element.getAttribute("value");
+      playerArr.push(selectedPokemon);
+      element.style.pointerEvents = "none";
+      element.style.opacity = "0.5";
+    }
+    if (admin.arrIsFull(playerArr)) {
+      confirmButton.style.pointerEvents = "auto";
+    }
   },
   addRemainingToOpponent: () => {
     opponentArr = starterPokemonNames.filter(
@@ -63,18 +67,19 @@ const setup = {
     }
   },
   clearBattleArena: () => {
-    commentaryBar.innerHTML = "[Game Commentary]"
-    playerOptions.innerHTML = ""
-    player1.innerHTML = ""
-    opponent1.innerHTML = ""
+    commentaryBar.innerHTML = "[Game Commentary]";
+    playerOptions.innerHTML = "";
+    player1.innerHTML = "";
+    opponent1.innerHTML = "";
   },
   renderBattlePokemon: (pokemon, parentNode) => {
-    parentNode.style.transition = ""
-    parentNode.style.opacity = "100%"
+    // console.log(parentNode)
+    parentNode.style.transition = "";
+    parentNode.style.opacity = "100%";
     const img = render.createImgWithName(pokemon);
     parentNode.appendChild(img);
     const healthBar = render.createHealthBar(pokemon);
     parentNode.appendChild(healthBar);
-    battleContainer.appendChild(parentNode)
+    battleContainer.appendChild(parentNode);
   },
 };

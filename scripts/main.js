@@ -1,28 +1,22 @@
-const delay = 250;
+const delay = 500;
 
 const startRound = () => {
   setup.selectRandomOpponent();
   setup.generateMoves(currentPlayer);
   setup.renderBattlePokemon(currentPlayer, player1);
+  setup.renderBattlePokemon(currentOpponent, opponent1);
+  selectPlayerMove();
   test.announceCurrentPokemon();
   console.log(
     `${currentPlayer}'s health is ${stats.getPokemonHP(currentPlayer)}`
   );
-  setup.renderBattlePokemon(currentOpponent, opponent1);
-  stats.reflectPokemonHealth(currentPlayer);
-  selectPlayerMove();
 };
-
-//-------------- Page 1 --------------//
 
 submitBtn.addEventListener("click", () => {
   buttons.handleSubmitButton();
   setup.populatePlayersArray();
   buttons.activateConfirmButton();
 });
-
-//-------------- Page 2 --------------//
-// Generate more info modal (low priority)
 
 //-------------- Page 3 - Selection Page --------------//
 // select candidate and assign to currentPlayer
@@ -80,9 +74,14 @@ const restartGame = () => {
     console.log("clicked");
     resultsPage.style.display = "none";
     titlePage.style.display = "block";
+    teamDisplay.innerHTML = ""; 
     playerArr.splice(0, playerArr.length);
     opponentArr.splice(0, opponentArr.length);
     console.log(playerArr, opponentArr);
+    avatars.forEach((element) => {
+      element.style.pointerEvents = "auto";
+      element.style.opacity = "100";
+    });
   });
 };
 

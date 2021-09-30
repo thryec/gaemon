@@ -43,7 +43,9 @@ const render = {
     let winner = "";
     if (pokemonDetailsObject[receiver].hp > 0) {
       action = `${sender} used ${move}....`;
-      effect = `${receiver}'s HP is now ${pokemonDetailsObject[receiver].hp}`;
+      effect = `${receiver}'s HP is now ${Math.round(
+        pokemonDetailsObject[receiver].hp
+      )}`; 
     } else {
       action = `${sender} used ${move}....`;
       effect = `${receiver} is dead`;
@@ -52,11 +54,12 @@ const render = {
     return [action, effect, winner];
   },
   removeFadeOut: (el, speed) => {
+    console.log(`test ${el.children}`);
     let seconds = speed / 1000;
     el.style.transition = "opacity " + seconds + "s ease";
     el.style.opacity = 0;
     setTimeout(() => {
-      el.parentNode.removeChild(el);
+      el.innerHTML = "";
     }, speed);
   },
 };
@@ -68,10 +71,9 @@ const stats = {
   getMoveHP: (sender, receiver, move) => {
     const detailsObject = stats.getPokemonDetailsWithName(sender);
     const rawHP = detailsObject[0].moves[move];
-    const senderType = stats.getPokemonType(sender)
-    const receiverType = stats.getPokemonType(receiver)
-    const multiplier = matrix.getMultiplier(senderType, receiverType)
-    console.log(rawHP, multiplier)
+    const senderType = stats.getPokemonType(sender);
+    const receiverType = stats.getPokemonType(receiver);
+    const multiplier = matrix.getMultiplier(senderType, receiverType);
     return rawHP * multiplier;
   },
   getPokemonHP: (pokemon) => {
@@ -99,7 +101,11 @@ const stats = {
     const healthStatus = document.getElementsByClassName(
       `health-bar ${pokemon}`
     );
-    healthStatus[0].style.width = currentPlayerHealth;
+    // const currHealth = stats.getPokemonHP(pokemon);
+    // const originalHealth = stats.getOriginalHP(pokemon);
+    // const width = ((currHealth / originalHealth) * 100).toString() + "%";
+    // console.log(`${pokemon}: ${width}`)
+    healthStatus[0].style.width = currentHealth;
   },
 };
 
@@ -128,4 +134,3 @@ const test = {
     }
   },
 };
-

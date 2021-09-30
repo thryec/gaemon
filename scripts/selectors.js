@@ -5,7 +5,7 @@ let playerArr = [];
 let opponentArr = [];
 let currentPlayer = "";
 let currentOpponent = "";
-let currentPlayerHealth = ''
+let currentHealth = ''
 
 //-------------- Page/Container Elements --------------//
 
@@ -21,6 +21,7 @@ const opponent1 = document.querySelector(".opponent1");
 const commentaryBar = document.querySelector(".game-commentary");
 const resultsPage = document.querySelector('.results-page')
 const result = document.querySelector('.show-result')
+
 
 //-------------- Button/Image Elements --------------//
 
