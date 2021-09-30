@@ -19,7 +19,6 @@ const game = {
   },
 };
 
-// functions for setting up the game
 const setup = {
   populatePlayersArray: () => {
     avatars.forEach((element) => {

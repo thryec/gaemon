@@ -6,15 +6,16 @@
 }
 
 .title-round-1 {
-  padding-top: 5%;
+  padding-top: 3%;
+  font-size: 50px;
 }
 
 .battle-container {
   margin: auto;
   background-color: rgba(200, 200, 200, 0.4);
   backdrop-filter: blur(10px);
-  margin-top: 10%;
-  padding: 5%;
+  height: 500px; 
+  margin-top: 3%;
 }
 
 .battle-character {
@@ -24,7 +25,7 @@
 }
 
 .battle-character h3 {
-  font-size: 30px;
+  font-size: 40px;
   color: rgb(30, 30, 30);
   font-weight: bold;
   text-decoration: underline;
@@ -34,8 +35,8 @@
   display: block;
   margin: 0 auto;
   padding: 5%;
-  height: 280px;
-  max-width: 280px;
+  height: 400px;
+  max-width: 400px;
 }
 
 .battle-character .health-bar-container {
@@ -52,9 +53,10 @@
 
 .player-moves {
   position: absolute;
-  width: 90%;
-  left: 35px;
+  width: 80%;
+  left: 150px;
   top: 800px;
+  height:max-content;
 }
 
 .attack-options {
@@ -69,12 +71,14 @@
 
 .game-commentary {
   border-radius: 10px;
-  font-size: 20px;
+  font-size: 30px;
   font-weight: bold;
   position: absolute;
-  left: 35px;
+  left: 150px;
   top: 730px;
-  width: 90%;
+  width: 80%;
+  height: 50px;
+  vertical-align: middle;
 }
 
 .remove-character {

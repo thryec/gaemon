@@ -31,6 +31,7 @@ const buttons = {
     for (let option of playersCharacters) {
       option.addEventListener("click", (evt) => {
         option.style.pointerEvents = "auto";
+        option.style.opacity = "0.5";
         currentPlayer = evt.target.getAttribute("value");
         test.announceCurrentPokemon();
       });

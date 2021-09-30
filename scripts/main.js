@@ -73,6 +73,25 @@ const opponentAttacks = (sender, receiver) => {
   opponentGameCommentary(sender, receiver, opponentMove);
 };
 
+
+//-------------- Page 5 --------------//
+
+const restartGame = () => {
+  restartButton.addEventListener('click', () => {
+    console.log('clicked')
+    resultsPage.style.display = "none";
+    titlePage.style.display = "block"
+    playerArr.splice(0, playerArr.length)
+    opponentArr.splice(0, opponentArr.length)
+    console.log(playerArr, opponentArr)
+  })
+}
+
+window.addEventListener('load', () => {
+  restartGame(); 
+})
+
+
 //-------------- Game Functions --------------//
 
 const playerGameCommentary = async (sender, receiver, move) => {
@@ -159,6 +178,7 @@ const returnPlayersSelection = () => {
       teamDisplay.appendChild(div);
     }
     if (stats.checkIfAlive(currentPlayer)) {
+      console.log(currentPlayer)
       stats.reflectPokemonHealth(currentPlayer);
     }
     buttons.selectActiveCharacter();
@@ -169,10 +189,12 @@ const handlePlayerLoss = () => {
   battlePage.style.display = "none";
   resultsPage.style.display = "block";
   result.innerHTML = "Sorry you lost :(";
+  restartGame(); 
 };
 
 const handlePlayerWin = () => {
   battlePage.style.display = "none";
   resultsPage.style.display = "block";
   result.innerHTML = "Yay!";
+  restartGame(); 
 };

@@ -6,7 +6,7 @@
   }
   
   .selection-page h1 {
-    padding: 2% 5%;
+    padding: 2% 2%;
   }
   
   .team-members {
@@ -28,7 +28,7 @@
   button.confirm-team-btn {
     /* position: fixed;  */
     color: white;
-    margin-top: 15%;
+    margin-top: 10%;
     border: none;
     width: 200px;
     height: 50px;

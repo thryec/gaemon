@@ -22,7 +22,7 @@ body {
 
 .health-bar-container {
   height: 20px;
-  width: 150px;
+  width: 200px;
   background-color: #ccc;
   position: relative;
   border-radius: 50px;

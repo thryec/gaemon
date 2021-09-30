@@ -4,9 +4,11 @@
 }
 
 .results-page h1 {
-    padding-top: 40%;
+    padding-top: 12%;
+    font-size: 50px;
 }
 
 .play-again {
-    margin-top: 40%;
+    margin-top: 5%;
+    font-size: 25px;
 }
