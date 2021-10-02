@@ -51,11 +51,20 @@
   color: rgb(30, 30, 30);
 }
 
-.player-moves {
-  position: absolute;
+.game-commentary {
+  border-radius: 10px;
+  font-size: 30px;
+  font-weight: bold;
   width: 80%;
-  left: 150px;
-  top: 800px;
+  margin: auto;
+  margin-top: 2%;
+  height: 50px;
+  vertical-align: middle;
+}
+.player-moves {
+  width: 80%;
+  margin: auto;
+  margin-top: 2%;
   height:max-content;
 }
 
@@ -63,22 +72,10 @@
   background-color: aqua;
   border: none;
   border-radius: 10px;
-  font-size: 25px;
+  font-size: 30px;
   margin: 2%;
   padding: 2%;
   cursor: pointer;
-}
-
-.game-commentary {
-  border-radius: 10px;
-  font-size: 30px;
-  font-weight: bold;
-  position: absolute;
-  left: 150px;
-  top: 730px;
-  width: 80%;
-  height: 50px;
-  vertical-align: middle;
 }
 
 .remove-character {

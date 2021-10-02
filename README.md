@@ -20,12 +20,12 @@ https://thryec.github.io/gaemon/
 ## Technologies
 * HTML
 * CSS
-* Vanilla Javascript
-* AJAX 
+* VanillaJS for DOM Manipulation
+* AJAX for fetching API data
 
 ## Components 
+* API to fetch Pokemon data (https://pokeapi.co/)
 * Pokemon Class component to generate new Pokemon objects 
-* API to fetch Pokemon data 
 * Event listeners allowing users to select Pokemon, moves, etc. 
 * Interactive gameplay 
 

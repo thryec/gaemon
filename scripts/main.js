@@ -1,4 +1,4 @@
-const delay = 500;
+const delay = 1000;
 
 const startRound = () => {
   setup.selectRandomOpponent();
@@ -120,7 +120,7 @@ const playerGameCommentary = async (sender, receiver, move) => {
     pokemonDetailsObject[receiver].isAlive = false;
     setTimeout(() => {
       returnPlayersSelection();
-    }, delay);
+    }, 3000);
   }
 };
 
@@ -153,7 +153,7 @@ const opponentGameCommentary = async (sender, receiver, move) => {
     pokemonDetailsObject[receiver].isAlive = false;
     setTimeout(() => {
       returnPlayersSelection();
-    }, delay);
+    }, 3000);
   }
 };
 
